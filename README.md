@@ -7,14 +7,14 @@ updating making streams with name and score elements much easier to manage.
 To make updating melee stream data much easier. For instance, here is a sample
 stream overlay:
 
-[Example Overlay](https://raw.githubusercontent.com/wiki/JSpeedie/smash-updater/images/ExampleOverlay.png)
+![Example Overlay](https://raw.githubusercontent.com/wiki/JSpeedie/smash-updater/images/ExampleOverlay.png)
 
 This overlay contains many elements that require frequent updating like the
 names, the scores, the stock icons, and some overlays have more. In the
 screenshot below you can see buttons, comboboxes, JLists used to update
 that information from within the program
 
-[Program Screenshot](https://raw.githubusercontent.com/wiki/JSpeedie/smash-updater/images/SmashUpdater.png)
+![Program Screenshot](https://raw.githubusercontent.com/wiki/JSpeedie/smash-updater/images/SmashUpdater.png)
 
 ## Features/Reason to use
 
