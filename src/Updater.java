@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Updater implements ActionListener {
 	private final Map<String, ImageIcon> StockIconMap = new HashMap<>();
+	private final Map<String, ImageIcon> PortIconMap = new HashMap<>();
 	/* Files for program */
 	private File namesFile;
 	private File leftNameFile;
@@ -148,12 +150,12 @@ public class Updater implements ActionListener {
 	private JAliasedComboBox leftStockIconCombo2;
 	private JAliasedComboBox rightStockIconCombo1;
 	private JAliasedComboBox rightStockIconCombo2;
-	private JAliasedComboBox leftPortCombo1;
-	private JAliasedComboBox leftPortCombo2;
-	private JAliasedComboBox rightPortCombo1;
-	private JAliasedComboBox rightPortCombo2;
 	private JAliasedComboBox leftCommentatorName;
 	private JAliasedComboBox rightCommentatorName;
+	private JList leftPortList1;
+	private JList leftPortList2;
+	private JList rightPortList1;
+	private JList rightPortList2;
 	private JList leftStockList1;
 	private JList leftStockList2;
 	private JList rightStockList1;
@@ -204,7 +206,7 @@ public class Updater implements ActionListener {
 	private JAliasedTextField rightPortText;
 	private JAliasedTextField right2PortText;
 
-	/* Custom Cell Renderer {{{ */
+	/* Custom Cell Renderers {{{ */
 	public class StockIconListCellRenderer extends DefaultListCellRenderer {
 		@Override
 		public Component getListCellRendererComponent(JList list, Object obj, int index,
@@ -213,6 +215,19 @@ public class Updater implements ActionListener {
 			JLabel item = (JLabel) super.getListCellRendererComponent(list, obj, index, isSelected,
 				cellHasFocus);
 			item.setIcon(StockIconMap.get((String) obj));
+			item.setText("");
+			return item;
+		}
+	}
+
+	public class PortIconListCellRenderer extends DefaultListCellRenderer {
+		@Override
+		public Component getListCellRendererComponent(JList list, Object obj, int index,
+			boolean isSelected, boolean cellHasFocus) {
+
+			JLabel item = (JLabel) super.getListCellRendererComponent(list, obj, index, isSelected,
+				cellHasFocus);
+			item.setIcon(PortIconMap.get((String) obj));
 			item.setText("");
 			return item;
 		}
@@ -350,10 +365,10 @@ public class Updater implements ActionListener {
 		leftStockIconCombo2.removeAllItems();
 		rightStockIconCombo1.removeAllItems();
 		rightStockIconCombo2.removeAllItems();
-		leftPortCombo1.removeAllItems();
-		leftPortCombo2.removeAllItems();
-		rightPortCombo1.removeAllItems();
-		rightPortCombo2.removeAllItems();
+		/*leftPortList1.removeAllItems();
+		leftPortList2.removeAllItems();
+		rightPortList1.removeAllItems();
+		rightPortList2.removeAllItems();*/
 		for (int i = 0; i < namesList.size(); i++) {
 			leftName1.addItem(namesList.get(i));
 			leftName2.addItem(namesList.get(i));
@@ -369,10 +384,10 @@ public class Updater implements ActionListener {
 			rightStockIconCombo2.addItem(iconsList.get(i));
 		}
 		for (int i = 0; i < portsList.size(); i++) {
-			leftPortCombo1.addItem(portsList.get(i));
-			leftPortCombo2.addItem(portsList.get(i));
-			rightPortCombo1.addItem(portsList.get(i));
-			rightPortCombo2.addItem(portsList.get(i));
+			/*leftPortList1.addItem(portsList.get(i));
+			leftPortList2.addItem(portsList.get(i));
+			rightPortList1.addItem(portsList.get(i));
+			rightPortList2.addItem(portsList.get(i));*/
 		}
 		readFromFile(leftScoreFile, (JTextComponent) leftScore);
 		// leftScoreValue = Integer.parseInt(leftScore.getText());
@@ -386,6 +401,31 @@ public class Updater implements ActionListener {
 		rightName2.setSelectedItem("" + stringFromFile(right2NameFile));
 		leftCommentatorName.setSelectedItem("" + stringFromFile(leftCommentatorNameFile));
 		rightCommentatorName.setSelectedItem("" + stringFromFile(rightCommentatorNameFile));
+		try {
+			File portIconDir = new File(portsDir.getPath());
+			File[] icons = portIconDir.listFiles();
+			String[] iconNames = portIconDir.list();
+
+			/* Perform a null-check in case the path does not denote a directory */
+			if (icons != null) {
+				/* Added the images within the character stock icon directory to the hashmap */
+				for (int i = 0; i < icons.length; i++) {
+					PortIconMap.put(icons[i].getName(), new ImageIcon(portIconDir.getPath()
+						+ "/" + icons[i].getName()));
+				}
+				Arrays.sort(iconNames);
+				/* Sets the data in the JList to have the names of the icons */
+				leftPortList1.setListData(iconNames);
+				leftPortList2.setListData(iconNames);
+				rightPortList1.setListData(iconNames);
+				rightPortList2.setListData(iconNames);
+			} else {
+				System.err.println("Warning: portIconDir is not a directory");
+			}
+		} catch (Exception error) {
+			error.printStackTrace();
+			System.err.println("Warning: could not load port icons");
+		}
 	}
 
 	private void setScorePositions() {
@@ -482,7 +522,7 @@ public class Updater implements ActionListener {
 		leftStockIconPreview2.setVisible(visibility);
 		leftStockIconCombo2.setVisible(visibility);
 		leftStockList2.setVisible(visibility);
-		leftPortCombo2.setVisible(visibility);
+		leftPortList2.setVisible(visibility);
 		leftName2.setVisible(visibility);
 		switchStockIcons2.setVisible(visibility);
 		switchNames2.setVisible(visibility);
@@ -490,7 +530,7 @@ public class Updater implements ActionListener {
 		rightStockIconPreview2.setVisible(visibility);
 		rightStockIconCombo2.setVisible(visibility);
 		rightStockList2.setVisible(visibility);
-		rightPortCombo2.setVisible(visibility);
+		rightPortList2.setVisible(visibility);
 		rightName2.setVisible(visibility);
 	}
 
@@ -601,12 +641,12 @@ public class Updater implements ActionListener {
 		leftStockIconCombo2 = new JAliasedComboBox();
 		rightStockIconCombo1 = new JAliasedComboBox();
 		rightStockIconCombo2 = new JAliasedComboBox();
-		leftPortCombo1 = new JAliasedComboBox();
-		leftPortCombo2 = new JAliasedComboBox();
-		rightPortCombo1 = new JAliasedComboBox();
-		rightPortCombo2 = new JAliasedComboBox();
 		leftCommentatorName = new JAliasedComboBox();
 		rightCommentatorName = new JAliasedComboBox();
+		leftPortList1 = new JList();
+		leftPortList2 = new JList();
+		rightPortList1 = new JList();
+		rightPortList2 = new JList();
 		leftStockList1 = new JList();
 		leftStockList2 = new JList();
 		rightStockList1 = new JList();
@@ -790,27 +830,32 @@ public class Updater implements ActionListener {
 				}
 			}
 		});
-		leftPortCombo1.setBounds(
+		leftPortList1.setBounds(
 			leftStockList1.getX(),
 			leftStockList1.getY() + leftStockList1.getHeight() + small_gap_width,
 			combo_box_width,
 			element_height);
-		leftPortCombo1.setMaximumRowCount(stock_visible_rows);
-		leftPortCombo1.addActionListener(new ActionListener() {
+		leftPortList1.setCellRenderer(new PortIconListCellRenderer());
+		leftPortList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		leftPortList1.setLayoutOrientation(JList.VERTICAL_WRAP);
+		leftPortList1.setVisibleRowCount(-1);
+		JScrollPane leftPortList1Scroller = new JScrollPane(leftPortList1);
+		leftPortList1Scroller.setPreferredSize(new Dimension(leftPortList1.getWidth(), leftPortList1.getHeight()));
+		leftPortList1.addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void valueChanged(ListSelectionEvent e) {
 				try {
-					File newPort = new File(portsDir.getPath() + "/" + (String) leftPortCombo1.getSelectedItem());
-					if (newPort.exists()) {
-						Files.copy(newPort.toPath(), leftPortFile.toPath(), REPLACE_EXISTING);
-						System.out.println("Info: new icon path = \"" + newPort.getPath() + "\"");
+					File newIcon = new File(portsDir.getPath() + "/" + leftPortList1.getSelectedValue());
+					if (newIcon.exists()) {
+						Files.copy(newIcon.toPath(), leftPortFile.toPath(), REPLACE_EXISTING);
+						System.out.println("Info: new port icon path = \"" + newIcon.getPath() + "\"");
 					} else {
-						System.err.println("Warning: new port image does not exist \""
-							+ newPort.getPath() + "\"");
+						System.err.println("Warning: new port icon does not exist \""
+							+ newIcon.getPath() + "\"");
 					}
 				} catch (Exception error) {
 					error.printStackTrace();
-					System.err.println("Warning: could not load port image");
+					System.err.println("Warning: could not load port icon");
 				}
 			}
 		});
@@ -844,34 +889,39 @@ public class Updater implements ActionListener {
 				}
 			}
 		});
-		rightPortCombo1.setBounds(
+		rightPortList1.setBounds(
 			rightStockList1.getX(),
 			rightStockList1.getY() + rightStockList1.getHeight() + small_gap_width,
 			combo_box_width,
 			element_height);
-		rightPortCombo1.setMaximumRowCount(stock_visible_rows);
-		rightPortCombo1.addActionListener(new ActionListener() {
+		rightPortList1.setCellRenderer(new PortIconListCellRenderer());
+		rightPortList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		rightPortList1.setLayoutOrientation(JList.VERTICAL_WRAP);
+		rightPortList1.setVisibleRowCount(-1);
+		JScrollPane rightPortList1Scroller = new JScrollPane(rightPortList1);
+		rightPortList1Scroller.setPreferredSize(new Dimension(rightPortList1.getWidth(), rightPortList1.getHeight()));
+		rightPortList1.addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void valueChanged(ListSelectionEvent e) {
 				try {
-					File newPort = new File(portsDir.getPath() + "/" + (String) rightPortCombo1.getSelectedItem());
-					if (newPort.exists()) {
-						Files.copy(newPort.toPath(), right2PortFile.toPath(), REPLACE_EXISTING);
-						System.out.println("Info: new icon path = \"" + newPort.getPath() + "\"");
+					File newIcon = new File(portsDir.getPath() + "/" + rightPortList1.getSelectedValue());
+					if (newIcon.exists()) {
+						Files.copy(newIcon.toPath(), rightPortFile.toPath(), REPLACE_EXISTING);
+						System.out.println("Info: new port icon path = \"" + newIcon.getPath() + "\"");
 					} else {
-						System.err.println("Warning: new port image does not exist \""
-							+ newPort.getPath() + "\"");
+						System.err.println("Warning: new port icon does not exist \""
+							+ newIcon.getPath() + "\"");
 					}
 				} catch (Exception error) {
 					error.printStackTrace();
-					System.err.println("Warning: could not load port image");
+					System.err.println("Warning: could not load port icon");
 				}
 			}
 		});
 		leftName1.setMaximumRowCount(names_visible_rows);
 		leftName1.setBounds(
-			leftPortCombo1.getX(),
-			leftPortCombo1.getY() + leftPortCombo1.getHeight() + small_gap_width,
+			leftPortList1.getX(),
+			leftPortList1.getY() + leftPortList1.getHeight() + small_gap_width,
 			combo_box_width,
 			element_height);
 		switchNames1.setBounds(leftName1.getX() + leftName1.getWidth() + small_gap_width, leftName1.getY(),
@@ -1054,27 +1104,32 @@ public class Updater implements ActionListener {
 				}
 			}
 		});
-		leftPortCombo2.setBounds(
+		leftPortList2.setBounds(
 			leftStockList2.getX(),
 			leftStockList2.getY() + leftStockList2.getHeight() + small_gap_width,
 			combo_box_width,
 			element_height);
-		leftPortCombo2.setMaximumRowCount(stock_visible_rows);
-		leftPortCombo2.addActionListener(new ActionListener() {
+		leftPortList2.setCellRenderer(new PortIconListCellRenderer());
+		leftPortList2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		leftPortList2.setLayoutOrientation(JList.VERTICAL_WRAP);
+		leftPortList2.setVisibleRowCount(-1);
+		JScrollPane leftPortList2Scroller = new JScrollPane(leftPortList2);
+		leftPortList2Scroller.setPreferredSize(new Dimension(leftPortList2.getWidth(), leftPortList2.getHeight()));
+		leftPortList2.addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void valueChanged(ListSelectionEvent e) {
 				try {
-					File newPort = new File(portsDir.getPath() + "/" + (String) leftPortCombo2.getSelectedItem());
-					if (newPort.exists()) {
-						Files.copy(newPort.toPath(), left2PortFile.toPath(), REPLACE_EXISTING);
-						System.out.println("Info: new icon path = \"" + newPort.getPath() + "\"");
+					File newIcon = new File(portsDir.getPath() + "/" + leftPortList2.getSelectedValue());
+					if (newIcon.exists()) {
+						Files.copy(newIcon.toPath(), left2PortFile.toPath(), REPLACE_EXISTING);
+						System.out.println("Info: new port icon path = \"" + newIcon.getPath() + "\"");
 					} else {
-						System.err.println("Warning: new port image does not exist \""
-							+ newPort.getPath() + "\"");
+						System.err.println("Warning: new port icon does not exist \""
+							+ newIcon.getPath() + "\"");
 					}
 				} catch (Exception error) {
 					error.printStackTrace();
-					System.err.println("Warning: could not load port image");
+					System.err.println("Warning: could not load port icon");
 				}
 			}
 		});
@@ -1109,34 +1164,39 @@ public class Updater implements ActionListener {
 				}
 			}
 		});
-		rightPortCombo2.setBounds(
+		rightPortList2.setBounds(
 			rightStockList2.getX(),
 			rightStockList2.getY() + rightStockList2.getHeight() + small_gap_width,
 			combo_box_width,
 			element_height);
-		rightPortCombo2.setMaximumRowCount(stock_visible_rows);
-		rightPortCombo2.addActionListener(new ActionListener() {
+		rightPortList2.setCellRenderer(new PortIconListCellRenderer());
+		rightPortList2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		rightPortList2.setLayoutOrientation(JList.VERTICAL_WRAP);
+		rightPortList2.setVisibleRowCount(-1);
+		JScrollPane rightPortList2Scroller = new JScrollPane(rightPortList2);
+		rightPortList2Scroller.setPreferredSize(new Dimension(rightPortList2.getWidth(), rightPortList2.getHeight()));
+		rightPortList2.addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void valueChanged(ListSelectionEvent e) {
 				try {
-					File newPort = new File(portsDir.getPath() + "/" + (String) rightPortCombo2.getSelectedItem());
-					if (newPort.exists()) {
-						Files.copy(newPort.toPath(), rightPortFile.toPath(), REPLACE_EXISTING);
-						System.out.println("Info: new icon path = \"" + newPort.getPath() + "\"");
+					File newIcon = new File(portsDir.getPath() + "/" + rightPortList2.getSelectedValue());
+					if (newIcon.exists()) {
+						Files.copy(newIcon.toPath(), right2PortFile.toPath(), REPLACE_EXISTING);
+						System.out.println("Info: new port icon path = \"" + newIcon.getPath() + "\"");
 					} else {
-						System.err.println("Warning: new port image does not exist \""
-							+ newPort.getPath() + "\"");
+						System.err.println("Warning: new port icon does not exist \""
+							+ newIcon.getPath() + "\"");
 					}
 				} catch (Exception error) {
 					error.printStackTrace();
-					System.err.println("Warning: could not load port image");
+					System.err.println("Warning: could not load port icon");
 				}
 			}
 		});
 		leftName2.setMaximumRowCount(names_visible_rows);
 		leftName2.setBounds(
 			small_gap_width,
-			leftPortCombo2.getY() + leftPortCombo2.getHeight() + small_gap_width,
+			leftPortList2.getY() + leftPortList2.getHeight() + small_gap_width,
 			combo_box_width,
 			element_height);
 		switchNames2.setBounds(
@@ -1401,10 +1461,10 @@ public class Updater implements ActionListener {
 		paneEditing.add(rightStockIconPreview1);
 		paneEditing.add(leftStockList1);
 		paneEditing.add(rightStockList1);
-		paneEditing.add(leftPortCombo1);
-		paneEditing.add(leftPortCombo2);
-		paneEditing.add(rightPortCombo1);
-		paneEditing.add(rightPortCombo2);
+		paneEditing.add(leftPortList1);
+		paneEditing.add(leftPortList2);
+		paneEditing.add(rightPortList1);
+		paneEditing.add(rightPortList2);
 		paneEditing.add(leftName1);
 		paneEditing.add(switchNames1);
 		paneEditing.add(rightName1);
