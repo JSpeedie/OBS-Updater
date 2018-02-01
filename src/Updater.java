@@ -74,7 +74,8 @@ public class Updater implements ActionListener {
 	final int dir_text_field_font_size = 13;
 	final int stock_visible_rows = 26;
 	final int names_visible_rows = 30;
-	private boolean show2 = true;
+	private boolean show2 = false;
+	private boolean showCommentators = false;
 
 	/* Aliased GUI classes {{{ */
 	public class JAliasedTextField extends JTextField {
@@ -134,10 +135,11 @@ public class Updater implements ActionListener {
 	}
 	/* }}} */
 
-	/* Editing elements */
+	/* Updating elements */
 	private JAliasedTextField leftScore;
 	private JAliasedTextField rightScore;
 	private JAliasedButton show2Button;
+	private JAliasedButton showCommentatorsButton;
 	private JAliasedButton leftScoreInc;
 	private JAliasedButton leftScoreDec;
 	private JAliasedButton rightScoreInc;
@@ -256,6 +258,7 @@ public class Updater implements ActionListener {
 		left2PortFile = new File(left2PortText.getText());
 		rightPortFile = new File(rightPortText.getText());
 		right2PortFile = new File(right2PortText.getText());
+		char test = 'h';
 	}
 
 	private void readNames() {
@@ -471,17 +474,17 @@ public class Updater implements ActionListener {
 			(combo_box_width - (2 * small_gap_width)) / 3,
 			(int) (element_height * 1.5));
 		bracketPositionLabel.setBounds(
-			rightScoreDec.getX(),
-			rightScoreDec.getY() + rightScoreDec.getHeight() + small_gap_width,
+			leftScoreDec.getX(),
+			leftScoreDec.getY() + leftScoreDec.getHeight() + small_gap_width,
 			combo_box_width,
 			element_height);
 		roundFormatLabel.setBounds(
-			leftScoreDec.getX(),
+			rightScoreDec.getX(),
 			bracketPositionLabel.getY(),
 			combo_box_width,
 			element_height);
 		bracketPosition.setBounds(
-			leftName1.getX(),
+			bracketPositionLabel.getX(),
 			bracketPositionLabel.getY() + bracketPositionLabel.getHeight() + small_gap_width,
 			combo_box_width,
 			element_height);
@@ -499,6 +502,10 @@ public class Updater implements ActionListener {
 			roundFormat.getX(),
 			roundFormat.getY() + roundFormat.getHeight() + small_gap_width,
 			combo_box_width,
+			element_height);
+		showCommentatorsButton.setBounds(leftName1.getX(),
+			bracketPosition.getY() + bracketPosition.getHeight() + small_gap_width,
+			element_height,
 			element_height);
 		leftCommentatorName.setBounds(
 			leftCommentatorLabel.getX(),
@@ -534,13 +541,20 @@ public class Updater implements ActionListener {
 		rightName2.setVisible(visibility);
 	}
 
+	private void setCommentatorsElementsVisibility(boolean visibility) {
+		leftCommentatorLabel.setVisible(visibility);
+		rightCommentatorLabel.setVisible(visibility);
+		leftCommentatorName.setVisible(visibility);
+		switchCommentatorNames.setVisible(visibility);
+		rightCommentatorName.setVisible(visibility);
+	}
+
 	private void setScoreY() {
 		if (show2) {
 			scoreY = leftName2.getY() + leftName2.getHeight() + small_gap_width;
 		} else {
 			scoreY = leftName1.getY() + leftName1.getHeight() + small_gap_width;
 		}
-		set2ElementsVisibility(show2);
 	}
 
 	private void toggle2() {
@@ -551,6 +565,16 @@ public class Updater implements ActionListener {
 		} else {
 			show2Button.setText("+");
 		}
+		set2ElementsVisibility(show2);
+	}
+
+	private void toggleCommentators() {
+		if (showCommentators) {
+			showCommentatorsButton.setText("-");
+		} else {
+			showCommentatorsButton.setText("+");
+		}
+		setCommentatorsElementsVisibility(showCommentators);
 	}
 
 	public Updater() {
@@ -629,6 +653,7 @@ public class Updater implements ActionListener {
 		leftScore = new JAliasedTextField("");
 		rightScore = new JAliasedTextField("");
 		show2Button = new JAliasedButton("t");
+		showCommentatorsButton = new JAliasedButton("t");
 		leftScoreInc = new JAliasedButton("+");
 		leftScoreDec = new JAliasedButton("-");
 		rightScoreInc = new JAliasedButton("+");
@@ -675,11 +700,11 @@ public class Updater implements ActionListener {
 		rightStockIconPreview1 = new JLabel();
 		rightStockIconPreview2 = new JLabel();
 
-		JPanel paneEditing = new JPanel(null);
+		JPanel paneUpdating = new JPanel(null);
 		JPanel paneSettings = new JPanel(null);
-		paneEditing.setPreferredSize(paneEditing.getPreferredSize());
+		paneUpdating.setPreferredSize(paneUpdating.getPreferredSize());
 		paneSettings.setPreferredSize(paneSettings.getPreferredSize());
-		paneEditing.validate();
+		paneUpdating.validate();
 		paneSettings.validate();
 		JFrame frame = new JFrame("Updater");
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -974,6 +999,13 @@ public class Updater implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				show2 = !show2;
 				toggle2();
+			}
+		});
+		showCommentatorsButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showCommentators = !showCommentators;
+				toggleCommentators();
 			}
 		});
 		rightLabel2.setBounds(
@@ -1318,7 +1350,10 @@ public class Updater implements ActionListener {
 			}
 		});
 		/* Initialize the score elements and below to the right position */
+		show2 = false;
+		showCommentators = false;
 		toggle2();
+		toggleCommentators();
 		/* Settings elements */
 		namesText.setBounds(5, 5, dir_text_field_width, dir_text_element_height);
 		namesText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1358,21 +1393,30 @@ public class Updater implements ActionListener {
 			dir_text_field_width,
 			dir_text_element_height);
 		rightScoreText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		bracketPositionText.setBounds(
-			leftScoreText.getX(),
-			leftScoreText.getY() + leftScoreText.getHeight() + small_gap_width,
-			dir_text_field_width,
-			dir_text_element_height);
-		bracketPositionText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		bracketPositionLabel.setBounds(
+			leftScoreDec.getX(),
+			leftScoreDec.getY() + leftScoreDec.getHeight() + small_gap_width,
+			combo_box_width,
+			element_height);
+		bracketPosition.setBounds(
+			bracketPositionLabel.getX(),
+			bracketPositionLabel.getY() + bracketPositionLabel.getHeight() + small_gap_width,
+			combo_box_width,
+			element_height);
+		bracketPosition.setFont(new Font("Arial", Font.BOLD, text_field_font_size));
+		showCommentatorsButton.setBounds(leftName1.getX(),
+			bracketPosition.getY() + bracketPosition.getHeight() + small_gap_width,
+			element_height,
+			element_height);
 		roundFormatText.setBounds(
-			bracketPositionText.getX() + bracketPositionText.getWidth() + small_gap_width,
-			bracketPositionText.getY(),
+			rightScoreDec.getX(),
+			bracketPosition.getY(),
 			dir_text_field_width,
 			dir_text_element_height);
 		roundFormatText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		leftCommentatorNameText.setBounds(
-			bracketPositionText.getX(),
-			bracketPositionText.getY() + bracketPositionText.getHeight() + small_gap_width,
+			bracketPosition.getX(),
+			bracketPosition.getY() + bracketPosition.getHeight() + small_gap_width,
 			dir_text_field_width,
 			dir_text_element_height);
 		leftCommentatorNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1452,57 +1496,58 @@ public class Updater implements ActionListener {
 		/* Read files to set text elements */
 		updateElements();
 		/* Add elements to the window */
-		paneEditing.add(leftLabel1);
-		paneEditing.add(rightLabel1);
-		paneEditing.add(leftStockIconPreview1);
-		paneEditing.add(leftStockIconCombo1);
-		paneEditing.add(switchStockIcons1);
-		paneEditing.add(rightStockIconCombo1);
-		paneEditing.add(rightStockIconPreview1);
-		paneEditing.add(leftStockList1);
-		paneEditing.add(rightStockList1);
-		paneEditing.add(leftPortList1);
-		paneEditing.add(leftPortList2);
-		paneEditing.add(rightPortList1);
-		paneEditing.add(rightPortList2);
-		paneEditing.add(leftName1);
-		paneEditing.add(switchNames1);
-		paneEditing.add(rightName1);
+		paneUpdating.add(leftLabel1);
+		paneUpdating.add(rightLabel1);
+		paneUpdating.add(leftStockIconPreview1);
+		paneUpdating.add(leftStockIconCombo1);
+		paneUpdating.add(switchStockIcons1);
+		paneUpdating.add(rightStockIconCombo1);
+		paneUpdating.add(rightStockIconPreview1);
+		paneUpdating.add(leftStockList1);
+		paneUpdating.add(rightStockList1);
+		paneUpdating.add(leftPortList1);
+		paneUpdating.add(leftPortList2);
+		paneUpdating.add(rightPortList1);
+		paneUpdating.add(rightPortList2);
+		paneUpdating.add(leftName1);
+		paneUpdating.add(switchNames1);
+		paneUpdating.add(rightName1);
 
-		paneEditing.add(show2Button);
-		paneEditing.add(leftLabel2);
-		paneEditing.add(rightLabel2);
-		paneEditing.add(leftStockIconPreview2);
-		paneEditing.add(rightStockIconPreview2);
-		paneEditing.add(leftStockIconCombo2);
-		paneEditing.add(switchStockIcons2);
-		paneEditing.add(rightStockIconCombo2);
-		paneEditing.add(leftStockList2);
-		paneEditing.add(rightStockList2);
-		paneEditing.add(leftName2);
-		paneEditing.add(switchNames2);
-		paneEditing.add(rightName2);
+		paneUpdating.add(show2Button);
+		paneUpdating.add(showCommentatorsButton);
+		paneUpdating.add(leftLabel2);
+		paneUpdating.add(rightLabel2);
+		paneUpdating.add(leftStockIconPreview2);
+		paneUpdating.add(rightStockIconPreview2);
+		paneUpdating.add(leftStockIconCombo2);
+		paneUpdating.add(switchStockIcons2);
+		paneUpdating.add(rightStockIconCombo2);
+		paneUpdating.add(leftStockList2);
+		paneUpdating.add(rightStockList2);
+		paneUpdating.add(leftName2);
+		paneUpdating.add(switchNames2);
+		paneUpdating.add(rightName2);
 
-		paneEditing.add(leftScoreLabel);
-		paneEditing.add(rightScoreLabel);
-		paneEditing.add(leftScoreDec);
-		paneEditing.add(leftScore);
-		paneEditing.add(leftScoreInc);
-		paneEditing.add(switchScore);
-		paneEditing.add(rightScoreDec);
-		paneEditing.add(rightScore);
-		paneEditing.add(rightScoreInc);
+		paneUpdating.add(leftScoreLabel);
+		paneUpdating.add(rightScoreLabel);
+		paneUpdating.add(leftScoreDec);
+		paneUpdating.add(leftScore);
+		paneUpdating.add(leftScoreInc);
+		paneUpdating.add(switchScore);
+		paneUpdating.add(rightScoreDec);
+		paneUpdating.add(rightScore);
+		paneUpdating.add(rightScoreInc);
 
-		paneEditing.add(bracketPositionLabel);
-		paneEditing.add(roundFormatLabel);
-		paneEditing.add(bracketPosition);
-		paneEditing.add(roundFormat);
+		paneUpdating.add(bracketPositionLabel);
+		paneUpdating.add(roundFormatLabel);
+		paneUpdating.add(bracketPosition);
+		paneUpdating.add(roundFormat);
 
-		paneEditing.add(leftCommentatorLabel);
-		paneEditing.add(rightCommentatorLabel);
-		paneEditing.add(leftCommentatorName);
-		paneEditing.add(switchCommentatorNames);
-		paneEditing.add(rightCommentatorName);
+		paneUpdating.add(leftCommentatorLabel);
+		paneUpdating.add(rightCommentatorLabel);
+		paneUpdating.add(leftCommentatorName);
+		paneUpdating.add(switchCommentatorNames);
+		paneUpdating.add(rightCommentatorName);
 
 		paneSettings.add(namesText);
 		paneSettings.add(leftNameText);
@@ -1520,7 +1565,7 @@ public class Updater implements ActionListener {
 		paneSettings.add(StockIconDirText);
 		paneSettings.add(PortsDirText);
 		paneSettings.add(reloadFilesButton);
-		tabbedPane.addTab("Editing", paneEditing);
+		tabbedPane.addTab("Updating", paneUpdating);
 		tabbedPane.addTab("Settings", paneSettings);
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 	}
