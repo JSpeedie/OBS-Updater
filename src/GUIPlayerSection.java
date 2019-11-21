@@ -513,6 +513,10 @@ public class GUIPlayerSection {
 		stockIconComboBox.addActionListener(a);
 	}
 
+	public void addPortsListListSelectionListener(ListSelectionListener a) {
+		portsList.addListSelectionListener(a);
+	}
+
 	public void setNamesPath(String s) {
 		namesFile = new File(s);
 	}

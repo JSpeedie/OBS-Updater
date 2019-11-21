@@ -1237,6 +1237,39 @@ public class Updater implements ActionListener {
 				}
 			}
 		});
+
+		left1PS.addPortsListListSelectionListener(new ListSelectionListener () {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (left1PS.getPortsFileName() != null) {
+					prefs.put(LEFT1_PORT_FILE_PATH, (String) left1PS.getPortsFileName());
+				}
+			}
+		});
+		right1PS.addPortsListListSelectionListener(new ListSelectionListener () {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (right1PS.getPortsFileName() != null) {
+					prefs.put(RIGHT1_PORT_FILE_PATH, (String) right1PS.getPortsFileName());
+				}
+			}
+		});
+		left2PS.addPortsListListSelectionListener(new ListSelectionListener () {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (left2PS.getPortsFileName() != null) {
+					prefs.put(LEFT2_PORT_FILE_PATH, (String) left2PS.getPortsFileName());
+				}
+			}
+		});
+		right2PS.addPortsListListSelectionListener(new ListSelectionListener () {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (right2PS.getPortsFileName() != null) {
+					prefs.put(RIGHT2_PORT_FILE_PATH, (String) right2PS.getPortsFileName());
+				}
+			}
+		});
 		/* Add elements to the window */
 		left1PS.addToPanel(paneUpdating);
 		right1PS.addToPanel(paneUpdating);
