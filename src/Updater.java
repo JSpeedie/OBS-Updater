@@ -243,6 +243,7 @@ public class Updater implements ActionListener {
 	private JAliasedLabel PortsDirLabel;
 	private JAliasedTextField StockIconDirText;
 	private JAliasedTextField PortsDirText;
+	private JAliasedButton NamesBrowseButton;
 	private JAliasedButton LeftNameBrowseButton;
 	private JAliasedButton Left2NameBrowseButton;
 	private JAliasedButton RightNameBrowseButton;
@@ -784,6 +785,7 @@ public class Updater implements ActionListener {
 		leftCommentatorLabel = new JAliasedLabel("Left Commentator");
 		rightCommentatorLabel = new JAliasedLabel("Right Commentator");
 
+		NamesBrowseButton = new JAliasedButton("Browse...");
 		LeftNameBrowseButton = new JAliasedButton("Browse...");
 		Left2NameBrowseButton = new JAliasedButton("Browse...");
 		RightNameBrowseButton = new JAliasedButton("Browse...");
@@ -1061,9 +1063,33 @@ public class Updater implements ActionListener {
 		namesText.setBounds(
 			namesLabel.getX(),
 			namesLabel.getY() + namesLabel.getHeight() + small_gap_width,
-			dir_text_field_width * 2 + small_gap_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		namesText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		NamesBrowseButton.setBounds(
+			namesText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			namesText.getY(),
+			button_width,
+			dir_text_element_height);
+		NamesBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		NamesBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Names file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						namesText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(FILE_NAMES, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 
 		namesFieldsLabel.setBounds(
 			namesText.getX(),
@@ -1829,6 +1855,7 @@ public class Updater implements ActionListener {
 
 		paneSettings.add(namesLabel);
 		paneSettings.add(namesText);
+		paneSettings.add(NamesBrowseButton);
 
 		paneSettings.add(namesFieldsLabel);
 		paneSettings.add(leftNameText);
