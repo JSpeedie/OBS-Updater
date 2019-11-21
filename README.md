@@ -19,9 +19,9 @@ that information from within the program
 ## Features/Reason to use
 
 By cooperating with the UTSC Smash Club, this has been designed for use
-in tournaments. It has features such
+in tournaments. It has features such as
 
-* Clicking either score number to set both to 0
+* Clicking either score number to reset both to 0
 * "switch" buttons for swapping names, scores or icons (big time saver
 in pratical use)
 * Teams functionality that can be hidden if desired
