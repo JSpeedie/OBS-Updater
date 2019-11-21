@@ -247,6 +247,8 @@ public class Updater implements ActionListener {
 	private JAliasedButton Left2NameBrowseButton;
 	private JAliasedButton RightNameBrowseButton;
 	private JAliasedButton Right2NameBrowseButton;
+	private JAliasedButton LeftScoreBrowseButton;
+	private JAliasedButton RightScoreBrowseButton;
 	private JAliasedButton StockIconDirBrowseButton;
 	private JAliasedButton PortsDirBrowseButton;
 
@@ -778,6 +780,8 @@ public class Updater implements ActionListener {
 		Left2NameBrowseButton = new JAliasedButton("Browse...");
 		RightNameBrowseButton = new JAliasedButton("Browse...");
 		Right2NameBrowseButton = new JAliasedButton("Browse...");
+		LeftScoreBrowseButton = new JAliasedButton("Browse...");
+		RightScoreBrowseButton = new JAliasedButton("Browse...");
 		StockIconDirBrowseButton = new JAliasedButton("Browse...");
 		PortsDirBrowseButton = new JAliasedButton("Browse...");
 
@@ -1184,87 +1188,136 @@ public class Updater implements ActionListener {
 		leftScoreText.setBounds(
 			scoresFieldsLabel.getX(),
 			scoresFieldsLabel.getY() + scoresFieldsLabel.getHeight() + small_gap_width,
-			dir_text_field_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		leftScoreText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		rightScoreText.setBounds(
-			leftScoreText.getX() + leftScoreText.getWidth() + small_gap_width,
+		LeftScoreBrowseButton.setBounds(
+			leftScoreText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			leftScoreText.getY(),
-			dir_text_field_width,
+			button_width,
+			dir_text_element_height);
+		LeftScoreBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		LeftScoreBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Left Score file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						leftScoreText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(LEFT_SCORE_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		rightScoreText.setBounds(
+			leftScoreText.getX(),
+			leftScoreText.getY() + leftScoreText.getHeight() + small_gap_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		rightScoreText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RightScoreBrowseButton.setBounds(
+			rightScoreText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			rightScoreText.getY(),
+			button_width,
+			dir_text_element_height);
+		RightScoreBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RightScoreBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Right Score file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						rightScoreText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(RIGHT_SCORE_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 
 		setInfoFieldsLabel.setBounds(
 			leftScoreText.getX(),
-			leftScoreText.getY() + leftScoreText.getHeight() + small_gap_width,
+			rightScoreText.getY() + rightScoreText.getHeight() + small_gap_width,
 			dir_text_field_width * 2,
 			dir_text_element_height);
 		setInfoFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		bracketPositionText.setBounds(
 			setInfoFieldsLabel.getX(),
 			setInfoFieldsLabel.getY() + setInfoFieldsLabel.getHeight() + small_gap_width,
-			dir_text_field_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		bracketPositionText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		roundFormatText.setBounds(
-			bracketPositionText.getX() + bracketPositionText.getWidth() + small_gap_width,
-			bracketPositionText.getY(),
-			dir_text_field_width,
+			bracketPositionText.getX(),
+			bracketPositionText.getY() + bracketPositionText.getHeight() + small_gap_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		roundFormatText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 
 		commentatorFieldsLabel.setBounds(
-			bracketPositionText.getX(),
-			bracketPositionText.getY() + bracketPositionText.getHeight() + small_gap_width,
+			roundFormatText.getX(),
+			roundFormatText.getY() + roundFormatText.getHeight() + small_gap_width,
 			dir_text_field_width * 2,
 			dir_text_element_height);
 		commentatorFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		leftCommentatorNameText.setBounds(
 			commentatorFieldsLabel.getX(),
 			commentatorFieldsLabel.getY() + commentatorFieldsLabel.getHeight() + small_gap_width,
-			dir_text_field_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		leftCommentatorNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		rightCommentatorNameText.setBounds(
-			leftCommentatorNameText.getX() + leftCommentatorNameText.getWidth() + small_gap_width,
-			leftCommentatorNameText.getY(),
-			dir_text_field_width,
+			leftCommentatorNameText.getX(),
+			leftCommentatorNameText.getY() + leftCommentatorNameText.getHeight() + small_gap_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		rightCommentatorNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 
 		stockIconFieldsLabel.setBounds(
-			leftCommentatorNameText.getX(),
-			leftCommentatorNameText.getY() + leftCommentatorNameText.getHeight() + small_gap_width,
+			rightCommentatorNameText.getX(),
+			rightCommentatorNameText.getY() + rightCommentatorNameText.getHeight() + small_gap_width,
 			dir_text_field_width * 2,
 			dir_text_element_height);
 		stockIconFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		leftStockIconText.setBounds(
 			stockIconFieldsLabel.getX(),
 			stockIconFieldsLabel.getY() + stockIconFieldsLabel.getHeight() + small_gap_width,
-			dir_text_field_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		leftStockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		left2StockIconText.setBounds(
-			leftStockIconText.getX() + leftStockIconText.getWidth() + small_gap_width,
-			leftStockIconText.getY(),
-			dir_text_field_width,
+			leftStockIconText.getX(),
+			leftStockIconText.getY() + leftStockIconText.getHeight() + small_gap_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		left2StockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		rightStockIconText.setBounds(
-			leftStockIconText.getX(),
-			leftStockIconText.getY() + leftStockIconText.getHeight() + small_gap_width,
-			dir_text_field_width,
+			left2StockIconText.getX(),
+			left2StockIconText.getY() + left2StockIconText.getHeight() + small_gap_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		rightStockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		right2StockIconText.setBounds(
-			rightStockIconText.getX() + rightStockIconText.getWidth() + small_gap_width,
-			rightStockIconText.getY(),
-			dir_text_field_width,
-			dir_text_element_height);
-		right2StockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		StockIconDirLabel.setBounds(
 			rightStockIconText.getX(),
 			rightStockIconText.getY() + rightStockIconText.getHeight() + small_gap_width,
+			(dir_text_field_width * 2) - button_width,
+			dir_text_element_height);
+		right2StockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+
+		StockIconDirLabel.setBounds(
+			right2StockIconText.getX(),
+			right2StockIconText.getY() + right2StockIconText.getHeight() + small_gap_width,
 			dir_text_field_width * 2 + small_gap_width,
 			dir_label_element_height);
 		StockIconDirLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1568,6 +1621,7 @@ public class Updater implements ActionListener {
 
 		paneSettings.add(namesLabel);
 		paneSettings.add(namesText);
+
 		paneSettings.add(namesFieldsLabel);
 		paneSettings.add(leftNameText);
 		paneSettings.add(left2NameText);
@@ -1577,9 +1631,13 @@ public class Updater implements ActionListener {
 		paneSettings.add(Left2NameBrowseButton);
 		paneSettings.add(RightNameBrowseButton);
 		paneSettings.add(Right2NameBrowseButton);
+
 		paneSettings.add(scoresFieldsLabel);
 		paneSettings.add(leftScoreText);
 		paneSettings.add(rightScoreText);
+		paneSettings.add(LeftScoreBrowseButton);
+		paneSettings.add(RightScoreBrowseButton);
+
 		paneSettings.add(setInfoFieldsLabel);
 		paneSettings.add(bracketPositionText);
 		paneSettings.add(roundFormatText);
