@@ -1408,24 +1408,120 @@ public class Updater implements ActionListener {
 			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		leftStockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		LeftStockIconBrowseButton.setBounds(
+			leftStockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			leftStockIconText.getY(),
+			button_width,
+			dir_text_element_height);
+		LeftStockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		LeftStockIconBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Left Stock Icon file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						leftStockIconText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(LEFT1_STOCK_ICON_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		left2StockIconText.setBounds(
 			leftStockIconText.getX(),
 			leftStockIconText.getY() + leftStockIconText.getHeight() + small_gap_width,
 			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		left2StockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		Left2StockIconBrowseButton.setBounds(
+			left2StockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			left2StockIconText.getY(),
+			button_width,
+			dir_text_element_height);
+		Left2StockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		Left2StockIconBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Left2 Stock Icon file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						left2StockIconText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(LEFT2_STOCK_ICON_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		rightStockIconText.setBounds(
 			left2StockIconText.getX(),
 			left2StockIconText.getY() + left2StockIconText.getHeight() + small_gap_width,
 			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		rightStockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RightStockIconBrowseButton.setBounds(
+			rightStockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			rightStockIconText.getY(),
+			button_width,
+			dir_text_element_height);
+		RightStockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RightStockIconBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Right Stock Icon file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						rightStockIconText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(RIGHT1_STOCK_ICON_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		right2StockIconText.setBounds(
 			rightStockIconText.getX(),
 			rightStockIconText.getY() + rightStockIconText.getHeight() + small_gap_width,
 			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		right2StockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		Right2StockIconBrowseButton.setBounds(
+			right2StockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			right2StockIconText.getY(),
+			button_width,
+			dir_text_element_height);
+		Right2StockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		Right2StockIconBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Right2 Stock Icon file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						right2StockIconText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(RIGHT2_STOCK_ICON_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 
 		StockIconDirLabel.setBounds(
 			right2StockIconText.getX(),
@@ -1767,6 +1863,10 @@ public class Updater implements ActionListener {
 		paneSettings.add(left2StockIconText);
 		paneSettings.add(rightStockIconText);
 		paneSettings.add(right2StockIconText);
+		paneSettings.add(LeftStockIconBrowseButton);
+		paneSettings.add(Left2StockIconBrowseButton);
+		paneSettings.add(RightStockIconBrowseButton);
+		paneSettings.add(Right2StockIconBrowseButton);
 
 		paneSettings.add(StockIconDirLabel);
 		paneSettings.add(StockIconDirText);
