@@ -37,6 +37,20 @@ public class Updater implements ActionListener {
 	private static final String RIGHT1_PORT_FILE_PATH="R1_PORT_FILE_PATH";
 	private static final String RIGHT2_PORT_FILE_PATH="R2_PORT_FILE_PATH";
 	private static final String FILE_NAMES="F_NAMES";
+	private static final String LEFT1_NAME_FP="LEFT1_NAME_FP";
+	private static final String RIGHT1_NAME_FP="RIGHT1_NAME_FP";
+	private static final String LEFT2_NAME_FP="LEFT2_NAME_FP";
+	private static final String RIGHT2_NAME_FP="RIGHT1_NAME_FP";
+	private static final String LEFT_SCORE_FP="LEFT_SCORE_FP";
+	private static final String RIGHT_SCORE_FP="RIGHT_SCORE_FP";
+	private static final String BRACKET_POSITION_FP="BRACKET_POSITION_FP";
+	private static final String ROUND_FORMAT_FP="ROUND_FORMAT_FP";
+	private static final String LEFT_COMMENTATOR_FP="LEFT_COMMENTATOR_FP";
+	private static final String RIGHT_COMMENTATOR_FP="RIGHT_COMMENTATOR_FP";
+	private static final String LEFT1_STOCK_ICON_FP="LEFT1_STOCK_ICON_FP";
+	private static final String RIGHT1_STOCK_ICON_FP="RIGHT1_STOCK_ICON_FP";
+	private static final String LEFT2_STOCK_ICON_FP="LEFT2_STOCK_ICON_FP";
+	private static final String RIGHT2_STOCK_ICON_FP="RIGHT2_STOCK_ICON_FP";
 	private static final String FILE_STOCK_ICONS="F_STOCK_ICONS";
 	private static final String FILE_PORTS="F_PORTS";
 	/* Preference Defaults */
@@ -575,26 +589,32 @@ public class Updater implements ActionListener {
 
 		/* TODO: IN-PROGRESS: replace this with more robust system */
 		final String InitialBaseDirText = System.getProperty("user.home") + "/_obs";
-		final String InitialNamesText =
-			prefs.get(FILE_NAMES, DEFAULT_FILE_NAMES);
-		final String InitialLeftNameText = InitialBaseDirText + "/left_name.txt";
-		final String InitialLeft2NameText = InitialBaseDirText + "/left_name2.txt";
-		final String InitialRightNameText = InitialBaseDirText + "/right_name.txt";
-		final String InitialRight2NameText = InitialBaseDirText + "/right_name2.txt";
-		final String InitialLeftCommentatorNameText = InitialBaseDirText + "/left_commentator_name.txt";
-		final String InitialRightCommentatorNameText = InitialBaseDirText + "/right_commentator_name.txt";
-		final String InitialLeftScoreText = InitialBaseDirText + "/left_score.txt";
-		final String InitialRightScoreText = InitialBaseDirText + "/right_score.txt";
-		final String InitialBracketPositionText = InitialBaseDirText + "/bracket_position.txt";
-		final String InitialRoundFormatText = InitialBaseDirText + "/round_format.txt";
-		final String InitialLeftStockIconText = InitialBaseDirText + "/left_stock_icon.png";
-		final String InitialLeft2StockIconText = InitialBaseDirText + "/left_stock_icon2.png";
-		final String InitialRightStockIconText = InitialBaseDirText + "/right_stock_icon.png";
-		final String InitialRight2StockIconText = InitialBaseDirText + "/right_stock_icon2.png";
+		final String InitialNamesText = prefs.get(FILE_NAMES, DEFAULT_FILE_NAMES);
+
+		final String InitialLeftNameText = prefs.get(LEFT1_NAME_FP, "CHANGETHIS");
+		final String InitialLeft2NameText = prefs.get(LEFT2_NAME_FP, "CHANGETHIS");
+		final String InitialRightNameText = prefs.get(RIGHT1_NAME_FP, "CHANGETHIS");
+		final String InitialRight2NameText = prefs.get(RIGHT2_NAME_FP, "CHANGETHIS");
+
+		final String InitialLeftCommentatorNameText = prefs.get(LEFT_COMMENTATOR_FP, "CHANGETHIS");
+		final String InitialRightCommentatorNameText = prefs.get(RIGHT_COMMENTATOR_FP, "CHANGETHIS");
+
+		final String InitialLeftScoreText = prefs.get(LEFT_SCORE_FP, "CHANGETHIS");
+		final String InitialRightScoreText = prefs.get(RIGHT_SCORE_FP, "CHANGETHIS");
+
+		final String InitialBracketPositionText = prefs.get(BRACKET_POSITION_FP, "CHANGETHIS");
+		final String InitialRoundFormatText = prefs.get(ROUND_FORMAT_FP, "CHANGETHIS");
+		final String InitialLeftStockIconText = prefs.get(LEFT1_STOCK_ICON_FP, "CHANGETHIS");
+		final String InitialLeft2StockIconText = prefs.get(LEFT2_STOCK_ICON_FP, "CHANGETHIS");
+		final String InitialRightStockIconText = prefs.get(RIGHT1_STOCK_ICON_FP, "CHANGETHIS");
+		final String InitialRight2StockIconText = prefs.get(RIGHT2_STOCK_ICON_FP, "CHANGETHIS");
+
 		final String InitialStockIconText =
 			prefs.get(FILE_STOCK_ICONS, DEFAULT_FILE_STOCK_ICONS);
 		final String InitialPortsText =
 			prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS);
+
+		// TODO: don't think these are needed
 		final String InitialLeftPortText = InitialBaseDirText + "/left_port.png";
 		final String InitialLeft2PortText = InitialBaseDirText + "/left_port2.png";
 		final String InitialRightPortText = InitialBaseDirText + "/right_port.png";
@@ -703,7 +723,7 @@ public class Updater implements ActionListener {
 		switchPorts2 = new JAliasedButton("switch");
 		switchScore = new JAliasedButton("switch");
 		switchCommentatorNames = new JAliasedButton("switch");
-		reloadFilesButton = new JAliasedButton("reload");
+		reloadFilesButton = new JAliasedButton("save & reload");
 		leftScoreLabel = new JAliasedLabel("Left Score");
 		rightScoreLabel = new JAliasedLabel("Right Score");
 		bracketPositionLabel = new JAliasedLabel("Bracket Position");
@@ -1166,19 +1186,44 @@ public class Updater implements ActionListener {
 				rightNameFile = new File(rightNameText.getText());
 				left2NameFile = new File(left2NameText.getText());
 				right2NameFile = new File(right2NameText.getText());
+
 				leftScoreFile = new File(leftScoreText.getText());
 				rightScoreFile = new File(rightScoreText.getText());
+
 				bracketPositionFile = new File(bracketPositionText.getText());
 				roundFormatFile = new File(roundFormatText.getText());
+
 				leftCommentatorNameFile = new File(leftCommentatorNameText.getText());
 				rightCommentatorNameFile = new File(rightCommentatorNameText.getText());
+
 				leftStockIconFile = new File(leftStockIconText.getText());
 				rightStockIconFile = new File(rightStockIconText.getText());
 				left2StockIconFile = new File(left2StockIconText.getText());
 				right2StockIconFile = new File(right2StockIconText.getText());
 
 				/* Save file paths program remembers */
+				// TODO: implement all prefs
 				prefs.put(FILE_NAMES, namesText.getText());
+
+				prefs.put(LEFT1_NAME_FP, leftNameText.getText());
+				prefs.put(RIGHT1_NAME_FP, rightNameText.getText());
+				prefs.put(LEFT2_NAME_FP, left2NameText.getText());
+				prefs.put(RIGHT2_NAME_FP, right2NameText.getText());
+
+				prefs.put(LEFT_SCORE_FP, leftScoreText.getText());
+				prefs.put(RIGHT_SCORE_FP, rightScoreText.getText());
+
+				prefs.put(BRACKET_POSITION_FP, bracketPositionText.getText());
+				prefs.put(ROUND_FORMAT_FP, roundFormatText.getText());
+
+				prefs.put(LEFT_COMMENTATOR_FP, leftCommentatorNameText.getText());
+				prefs.put(RIGHT_COMMENTATOR_FP, rightCommentatorNameText.getText());
+
+				prefs.put(LEFT1_STOCK_ICON_FP, leftStockIconText.getText());
+				prefs.put(RIGHT1_STOCK_ICON_FP, rightStockIconText.getText());
+				prefs.put(LEFT2_STOCK_ICON_FP, left2StockIconText.getText());
+				prefs.put(RIGHT2_STOCK_ICON_FP, right2StockIconText.getText());
+
 				prefs.put(FILE_STOCK_ICONS, StockIconDirText.getText());
 				prefs.put(FILE_PORTS, PortsDirText.getText());
 				updateElements();
