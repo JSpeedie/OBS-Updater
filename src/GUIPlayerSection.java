@@ -466,12 +466,12 @@ public class GUIPlayerSection {
 		return portsListScroller.getY();
 	}
 
-	public int getPortsIndex() {
-		return portsList.getSelectedIndex();
+	public Object getPortsFileName() {
+		return portsList.getSelectedValue();
 	}
 
-	public void setPortsIndex(int i) {
-		portsList.setSelectedIndex(i);
+	public void setPortsFileName(Object o) {
+		portsList.setSelectedValue(o, true);
 	}
 
 	public int getNameBoxY() {

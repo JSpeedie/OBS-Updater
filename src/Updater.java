@@ -32,6 +32,10 @@ public class Updater implements ActionListener {
 	private static final String LEFT2_CHAR_IMAGE="L2_CHAR_IMAGE";
 	private static final String RIGHT1_CHAR_IMAGE="R1_CHAR_IMAGE";
 	private static final String RIGHT2_CHAR_IMAGE="R2_CHAR_IMAGE";
+	private static final String LEFT1_PORT_FILE_PATH="L1_PORT_FILE_PATH";
+	private static final String LEFT2_PORT_FILE_PATH="L2_PORT_FILE_PATH";
+	private static final String RIGHT1_PORT_FILE_PATH="R1_PORT_FILE_PATH";
+	private static final String RIGHT2_PORT_FILE_PATH="R2_PORT_FILE_PATH";
 	private static final String FILE_NAMES="F_NAMES";
 	private static final String FILE_STOCK_ICONS="F_STOCK_ICONS";
 	private static final String FILE_PORTS="F_PORTS";
@@ -44,6 +48,10 @@ public class Updater implements ActionListener {
 	private static String DEFAULT_RIGHT2_CHAR="null";
 	private static String DEFAULT_RIGHT1_CHAR_IMAGE="null";
 	private static String DEFAULT_RIGHT2_CHAR_IMAGE="null";
+	private static String DEFAULT_LEFT1_PORT_FILE_PATH="null";
+	private static String DEFAULT_LEFT2_PORT_FILE_PATH="null";
+	private static String DEFAULT_RIGHT1_PORT_FILE_PATH="null";
+	private static String DEFAULT_RIGHT2_PORT_FILE_PATH="null";
 	private static String DEFAULT_FILE_NAMES="~/_obs/names.txt";
 	private static String DEFAULT_FILE_STOCK_ICONS="~/_obs/stock_icons/";
 	private static String DEFAULT_FILE_PORTS="~/_obs/ports/";
@@ -397,6 +405,12 @@ public class Updater implements ActionListener {
 		right1PS.setChosenImageFileName(prefs.get(RIGHT1_CHAR_IMAGE, DEFAULT_RIGHT1_CHAR_IMAGE));
 		left2PS.setChosenImageFileName(prefs.get(LEFT2_CHAR_IMAGE, DEFAULT_LEFT2_CHAR_IMAGE));
 		right2PS.setChosenImageFileName(prefs.get(RIGHT2_CHAR_IMAGE, DEFAULT_RIGHT2_CHAR_IMAGE));
+
+		/* Set port image to remembered image */
+		left1PS.setPortsFileName(prefs.get(LEFT1_PORT_FILE_PATH, DEFAULT_LEFT1_PORT_FILE_PATH));
+		right1PS.setPortsFileName(prefs.get(RIGHT1_PORT_FILE_PATH, DEFAULT_RIGHT1_PORT_FILE_PATH));
+		left2PS.setPortsFileName(prefs.get(LEFT2_PORT_FILE_PATH, DEFAULT_LEFT2_PORT_FILE_PATH));
+		right2PS.setPortsFileName(prefs.get(RIGHT2_PORT_FILE_PATH, DEFAULT_RIGHT2_PORT_FILE_PATH));
 
 		String leftComOldName = (String) leftCommentatorName.getSelectedItem();
 		String rightComOldName = (String) rightCommentatorName.getSelectedItem();
@@ -843,13 +857,12 @@ public class Updater implements ActionListener {
 		switchPorts1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int tempLeft = left1PS.getPortsIndex();
-				left1PS.setPortsIndex(right1PS.getPortsIndex());
-				right1PS.setPortsIndex(tempLeft);
+				String tempLeft = (String) left1PS.getPortsFileName();
+				left1PS.setPortsFileName(right1PS.getPortsFileName());
+				right1PS.setPortsFileName(tempLeft);
 
-				// TODO: handle prefs for this, save selection
-				//prefs.put(LEFT1_CHAR, left1PS.getCharacter());
-				//prefs.put(RIGHT1_CHAR, right1PS.getCharacter());
+				prefs.put(LEFT1_PORT_FILE_PATH, (String) left1PS.getPortsFileName());
+				prefs.put(RIGHT1_PORT_FILE_PATH, (String) right1PS.getPortsFileName());
 			}
 		});
 		switchPorts2.setBounds(
@@ -861,13 +874,12 @@ public class Updater implements ActionListener {
 		switchPorts2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int tempLeft = left2PS.getPortsIndex();
-				left2PS.setPortsIndex(right2PS.getPortsIndex());
-				right2PS.setPortsIndex(tempLeft);
-				//
-				// TODO: handle prefs for this, save selection
-				//prefs.put(LEFT1_CHAR, left1PS.getCharacter());
-				//prefs.put(RIGHT1_CHAR, right1PS.getCharacter());
+				String tempLeft = (String) left2PS.getPortsFileName();
+				left2PS.setPortsFileName(right2PS.getPortsFileName());
+				right2PS.setPortsFileName(tempLeft);
+
+				prefs.put(LEFT2_PORT_FILE_PATH, (String) left2PS.getPortsFileName());
+				prefs.put(RIGHT2_PORT_FILE_PATH, (String) right2PS.getPortsFileName());
 			}
 		});
 
