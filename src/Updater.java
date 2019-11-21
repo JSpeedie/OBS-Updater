@@ -40,7 +40,7 @@ public class Updater implements ActionListener {
 	private static final String LEFT1_NAME_FP="LEFT1_NAME_FP";
 	private static final String RIGHT1_NAME_FP="RIGHT1_NAME_FP";
 	private static final String LEFT2_NAME_FP="LEFT2_NAME_FP";
-	private static final String RIGHT2_NAME_FP="RIGHT1_NAME_FP";
+	private static final String RIGHT2_NAME_FP="RIGHT2_NAME_FP";
 	private static final String LEFT_SCORE_FP="LEFT_SCORE_FP";
 	private static final String RIGHT_SCORE_FP="RIGHT_SCORE_FP";
 	private static final String BRACKET_POSITION_FP="BRACKET_POSITION_FP";
@@ -243,6 +243,10 @@ public class Updater implements ActionListener {
 	private JAliasedLabel PortsDirLabel;
 	private JAliasedTextField StockIconDirText;
 	private JAliasedTextField PortsDirText;
+	private JAliasedButton LeftNameBrowseButton;
+	private JAliasedButton Left2NameBrowseButton;
+	private JAliasedButton RightNameBrowseButton;
+	private JAliasedButton Right2NameBrowseButton;
 	private JAliasedButton StockIconDirBrowseButton;
 	private JAliasedButton PortsDirBrowseButton;
 
@@ -652,23 +656,42 @@ public class Updater implements ActionListener {
 		rightNameText = new JAliasedTextField(InitialRightNameText);
 		right2NameText = new JAliasedTextField(InitialRight2NameText);
 
+		leftNameText.setToolTipText("file path for the left name file");
+		left2NameText.setToolTipText("file path for the left2 name file");
+		rightNameText.setToolTipText("file path for the right name file");
+		right2NameText.setToolTipText("file path for the right2 name file");
+
 		scoresFieldsLabel = new JAliasedLabel("Scores Fields File Paths:");
 		leftScoreText = new JAliasedTextField(InitialLeftScoreText);
 		rightScoreText = new JAliasedTextField(InitialRightScoreText);
+
+		leftScoreText.setToolTipText("file path for the left score file");
+		rightScoreText.setToolTipText("file path for the right score file");
 
 		setInfoFieldsLabel = new JAliasedLabel("Set Info Fields File Paths:");
 		bracketPositionText = new JAliasedTextField(InitialBracketPositionText);
 		roundFormatText = new JAliasedTextField(InitialRoundFormatText);
 
+		bracketPositionText.setToolTipText("file path for the bracket position file");
+		roundFormatText.setToolTipText("file path for the round format file");
+
 		commentatorFieldsLabel = new JAliasedLabel("Commentator Names Fields File Paths:");
 		leftCommentatorNameText = new JAliasedTextField(InitialLeftCommentatorNameText);
 		rightCommentatorNameText = new JAliasedTextField(InitialRightCommentatorNameText);
+
+		leftCommentatorNameText.setToolTipText("file path for the left commentator name file");
+		rightCommentatorNameText.setToolTipText("file path for the right commentator name file");
 
 		stockIconFieldsLabel = new JAliasedLabel("Stock Icon File Paths:");
 		leftStockIconText = new JAliasedTextField(InitialLeftStockIconText);
 		left2StockIconText = new JAliasedTextField(InitialLeft2StockIconText);
 		rightStockIconText = new JAliasedTextField(InitialRightStockIconText);
 		right2StockIconText = new JAliasedTextField(InitialRight2StockIconText);
+
+		leftStockIconText.setToolTipText("file path for the left stock icon file");
+		left2StockIconText.setToolTipText("file path for the left2 stock icon file");
+		rightStockIconText.setToolTipText("file path for the right stock icon file");
+		right2StockIconText.setToolTipText("file path for the right2 stock icon file");
 		//leftPortText = new JAliasedTextField(InitialLeftPortText);
 		//left2PortText = new JAliasedTextField(InitialLeft2PortText);
 		//rightPortText = new JAliasedTextField(InitialRightPortText);
@@ -751,8 +774,13 @@ public class Updater implements ActionListener {
 		leftCommentatorLabel = new JAliasedLabel("Left Commentator");
 		rightCommentatorLabel = new JAliasedLabel("Right Commentator");
 
+		LeftNameBrowseButton = new JAliasedButton("Browse...");
+		Left2NameBrowseButton = new JAliasedButton("Browse...");
+		RightNameBrowseButton = new JAliasedButton("Browse...");
+		Right2NameBrowseButton = new JAliasedButton("Browse...");
 		StockIconDirBrowseButton = new JAliasedButton("Browse...");
 		PortsDirBrowseButton = new JAliasedButton("Browse...");
+
 
 		JPanel paneUpdating = new JPanel(null);
 		JPanel paneSettings = new JPanel(null);
@@ -1026,31 +1054,130 @@ public class Updater implements ActionListener {
 		leftNameText.setBounds(
 			namesText.getX(),
 			namesFieldsLabel.getY() + namesFieldsLabel.getHeight() + small_gap_width,
-			dir_text_field_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		leftNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		left2NameText.setBounds(
-			leftNameText.getX() + leftNameText.getWidth() + small_gap_width,
+		LeftNameBrowseButton.setBounds(
+			leftNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			leftNameText.getY(),
-			dir_text_field_width,
+			button_width,
 			dir_text_element_height);
-		left2NameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		rightNameText.setBounds(
+		LeftNameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		LeftNameBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Left Name file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						leftNameText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(LEFT1_NAME_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+
+		left2NameText.setBounds(
 			leftNameText.getX(),
 			leftNameText.getY() + leftNameText.getHeight() + small_gap_width,
-			dir_text_field_width,
+			(dir_text_field_width * 2) - button_width,
+			dir_text_element_height);
+		left2NameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		Left2NameBrowseButton.setBounds(
+			left2NameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			left2NameText.getY(),
+			button_width,
+			dir_text_element_height);
+		Left2NameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		Left2NameBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Left2 Name file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						left2NameText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(LEFT2_NAME_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+
+		rightNameText.setBounds(
+			left2NameText.getX(),
+			left2NameText.getY() + left2NameText.getHeight() + small_gap_width,
+			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		rightNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		right2NameText.setBounds(
-			rightNameText.getX() + rightNameText.getWidth() + small_gap_width,
+		RightNameBrowseButton.setBounds(
+			rightNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			rightNameText.getY(),
-			dir_text_field_width,
+			button_width,
 			dir_text_element_height);
-		right2NameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RightNameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RightNameBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Right Name file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						rightNameText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(RIGHT1_NAME_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 
-		scoresFieldsLabel.setBounds(
+		right2NameText.setBounds(
 			rightNameText.getX(),
 			rightNameText.getY() + rightNameText.getHeight() + small_gap_width,
+			(dir_text_field_width * 2) - button_width,
+			dir_text_element_height);
+		right2NameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		Right2NameBrowseButton.setBounds(
+			right2NameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			right2NameText.getY(),
+			button_width,
+			dir_text_element_height);
+		Right2NameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		Right2NameBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Right2 Name file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						right2NameText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(RIGHT2_NAME_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+
+		scoresFieldsLabel.setBounds(
+			right2NameText.getX(),
+			right2NameText.getY() + right2NameText.getHeight() + small_gap_width,
 			dir_text_field_width,
 			dir_text_element_height);
 		scoresFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1446,6 +1573,10 @@ public class Updater implements ActionListener {
 		paneSettings.add(left2NameText);
 		paneSettings.add(rightNameText);
 		paneSettings.add(right2NameText);
+		paneSettings.add(LeftNameBrowseButton);
+		paneSettings.add(Left2NameBrowseButton);
+		paneSettings.add(RightNameBrowseButton);
+		paneSettings.add(Right2NameBrowseButton);
 		paneSettings.add(scoresFieldsLabel);
 		paneSettings.add(leftScoreText);
 		paneSettings.add(rightScoreText);
