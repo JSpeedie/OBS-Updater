@@ -1238,6 +1238,39 @@ public class Updater implements ActionListener {
 			}
 		});
 
+		left1PS.addStockListListSelectionListener(new ListSelectionListener () {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (left1PS.getChosenImageFileName() != null) {
+					prefs.put(LEFT1_CHAR_IMAGE, (String) left1PS.getChosenImageFileName());
+				}
+			}
+		});
+		right1PS.addStockListListSelectionListener(new ListSelectionListener () {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (right1PS.getChosenImageFileName() != null) {
+					prefs.put(RIGHT1_CHAR_IMAGE, (String) right1PS.getChosenImageFileName());
+				}
+			}
+		});
+		left2PS.addStockListListSelectionListener(new ListSelectionListener () {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (left2PS.getChosenImageFileName() != null) {
+					prefs.put(LEFT2_CHAR_IMAGE, (String) left2PS.getChosenImageFileName());
+				}
+			}
+		});
+		right2PS.addStockListListSelectionListener(new ListSelectionListener () {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (right2PS.getChosenImageFileName() != null) {
+					prefs.put(RIGHT2_CHAR_IMAGE, (String) right2PS.getChosenImageFileName());
+				}
+			}
+		});
+
 		left1PS.addPortsListListSelectionListener(new ListSelectionListener () {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
