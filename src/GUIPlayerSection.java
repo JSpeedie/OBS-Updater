@@ -462,6 +462,18 @@ public class GUIPlayerSection {
 		stockList.setSelectedIndex(i);
 	}
 
+	public int getPortsListY() {
+		return portsListScroller.getY();
+	}
+
+	public int getPortsIndex() {
+		return portsList.getSelectedIndex();
+	}
+
+	public void setPortsIndex(int i) {
+		portsList.setSelectedIndex(i);
+	}
+
 	public int getNameBoxY() {
 		return nameComboBox.getY();
 	}

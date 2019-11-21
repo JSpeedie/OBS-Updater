@@ -178,6 +178,8 @@ public class Updater implements ActionListener {
 	private JAliasedButton switchStockIcons2;
 	private JAliasedButton switchNames1;
 	private JAliasedButton switchNames2;
+	private JAliasedButton switchPorts1;
+	private JAliasedButton switchPorts2;
 	private JAliasedButton switchScore;
 	private JAliasedButton switchCommentatorNames;
 	private JAliasedButton reloadFilesButton;
@@ -514,6 +516,7 @@ public class Updater implements ActionListener {
 		left2PS.setVisible(visibility);
 		switchStockIcons2.setVisible(visibility);
 		switchNames2.setVisible(visibility);
+		switchPorts2.setVisible(visibility);
 		right2PS.setVisible(visibility);
 	}
 
@@ -682,6 +685,8 @@ public class Updater implements ActionListener {
 		switchStockIcons2 = new JAliasedButton("switch");
 		switchNames1 = new JAliasedButton("switch");
 		switchNames2 = new JAliasedButton("switch");
+		switchPorts1 = new JAliasedButton("switch");
+		switchPorts2 = new JAliasedButton("switch");
 		switchScore = new JAliasedButton("switch");
 		switchCommentatorNames = new JAliasedButton("switch");
 		reloadFilesButton = new JAliasedButton("reload");
@@ -828,6 +833,44 @@ public class Updater implements ActionListener {
 				right2PS.setName(tempLeftName);
 			}
 		});
+
+		switchPorts1.setBounds(
+			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			left1PS.getPortsListY(),
+			button_width,
+			element_height);
+		switchPorts1.setMargin(new Insets(0, 0, 0, 0));
+		switchPorts1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int tempLeft = left1PS.getPortsIndex();
+				left1PS.setPortsIndex(right1PS.getPortsIndex());
+				right1PS.setPortsIndex(tempLeft);
+
+				// TODO: handle prefs for this, save selection
+				//prefs.put(LEFT1_CHAR, left1PS.getCharacter());
+				//prefs.put(RIGHT1_CHAR, right1PS.getCharacter());
+			}
+		});
+		switchPorts2.setBounds(
+			left2PS.getX() + left2PS.getWidth() + small_gap_width,
+			left2PS.getPortsListY(),
+			button_width,
+			element_height);
+		switchPorts2.setMargin(new Insets(0, 0, 0, 0));
+		switchPorts2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int tempLeft = left2PS.getPortsIndex();
+				left2PS.setPortsIndex(right2PS.getPortsIndex());
+				right2PS.setPortsIndex(tempLeft);
+				//
+				// TODO: handle prefs for this, save selection
+				//prefs.put(LEFT1_CHAR, left1PS.getCharacter());
+				//prefs.put(RIGHT1_CHAR, right1PS.getCharacter());
+			}
+		});
+
 
 		/* Left Score Elements */
 		leftScoreLabel.setFont(new Font("Arial", Font.BOLD, name_font_size));
@@ -1191,6 +1234,8 @@ public class Updater implements ActionListener {
 		paneUpdating.add(switchStockIcons2);
 		paneUpdating.add(switchNames1);
 		paneUpdating.add(switchNames2);
+		paneUpdating.add(switchPorts1);
+		paneUpdating.add(switchPorts2);
 
 		paneUpdating.add(show2Button);
 		paneUpdating.add(showCommentatorsButton);
