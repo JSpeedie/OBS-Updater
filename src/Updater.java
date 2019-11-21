@@ -66,9 +66,9 @@ public class Updater implements ActionListener {
 	private static String DEFAULT_LEFT2_PORT_FILE_PATH="null";
 	private static String DEFAULT_RIGHT1_PORT_FILE_PATH="null";
 	private static String DEFAULT_RIGHT2_PORT_FILE_PATH="null";
-	private static String DEFAULT_FILE_NAMES="~/_obs/names.txt";
-	private static String DEFAULT_FILE_STOCK_ICONS="~/_obs/stock_icons/";
-	private static String DEFAULT_FILE_PORTS="~/_obs/ports/";
+	private static String DEFAULT_FILE_NAMES="CHANGETHIS";
+	private static String DEFAULT_FILE_STOCK_ICONS="CHANGETHIS";
+	private static String DEFAULT_FILE_PORTS="CHANGETHIS";
 	/* Files for program */
 	private File namesFile;
 	private File leftNameFile;
@@ -87,10 +87,11 @@ public class Updater implements ActionListener {
 	private File right2StockIconFile;
 	private File stockIconDir;
 	private File portsDir;
-	private File leftPortFile;
-	private File left2PortFile;
-	private File rightPortFile;
-	private File right2PortFile;
+	// TODO: remove? unused?
+	//private File leftPortFile;
+	//private File left2PortFile;
+	//private File rightPortFile;
+	//private File right2PortFile;
 	/* Local variables for score etc */
 	private ArrayList<String> namesList = new ArrayList<>();
 	private ArrayList<String> iconsList = new ArrayList<>();
@@ -214,24 +215,30 @@ public class Updater implements ActionListener {
 	/* Settings elements */
 	private JAliasedLabel namesLabel;
 	private JAliasedTextField namesText;
+	private JAliasedLabel namesFieldsLabel;
 	private JAliasedTextField leftNameText;
 	private JAliasedTextField left2NameText;
 	private JAliasedTextField rightNameText;
 	private JAliasedTextField right2NameText;
-	private JAliasedTextField leftCommentatorNameText;
-	private JAliasedTextField rightCommentatorNameText;
+	private JAliasedLabel scoresFieldsLabel;
 	private JAliasedTextField leftScoreText;
 	private JAliasedTextField rightScoreText;
+	private JAliasedLabel setInfoFieldsLabel;
 	private JAliasedTextField bracketPositionText;
 	private JAliasedTextField roundFormatText;
+	private JAliasedLabel commentatorFieldsLabel;
+	private JAliasedTextField leftCommentatorNameText;
+	private JAliasedTextField rightCommentatorNameText;
+	private JAliasedLabel stockIconFieldsLabel;
 	private JAliasedTextField leftStockIconText;
 	private JAliasedTextField left2StockIconText;
 	private JAliasedTextField rightStockIconText;
 	private JAliasedTextField right2StockIconText;
-	private JAliasedTextField leftPortText;
-	private JAliasedTextField left2PortText;
-	private JAliasedTextField rightPortText;
-	private JAliasedTextField right2PortText;
+	// TODO: remove? unused?
+	//private JAliasedTextField leftPortText;
+	//private JAliasedTextField left2PortText;
+	//private JAliasedTextField rightPortText;
+	//private JAliasedTextField right2PortText;
 	private JAliasedLabel StockIconDirLabel;
 	private JAliasedLabel PortsDirLabel;
 	private JAliasedTextField StockIconDirText;
@@ -285,10 +292,11 @@ public class Updater implements ActionListener {
 		right2StockIconFile = new File(right2StockIconText.getText());
 		stockIconDir = new File(StockIconDirText.getText());
 		portsDir = new File(PortsDirText.getText());
-		leftPortFile = new File(leftPortText.getText());
-		left2PortFile = new File(left2PortText.getText());
-		rightPortFile = new File(rightPortText.getText());
-		right2PortFile = new File(right2PortText.getText());
+		// TODO: remove? unused?
+		//leftPortFile = new File(leftPortText.getText());
+		//left2PortFile = new File(left2PortText.getText());
+		//rightPortFile = new File(rightPortText.getText());
+		//right2PortFile = new File(right2PortText.getText());
 	}
 
 	private void readNames() {
@@ -615,10 +623,10 @@ public class Updater implements ActionListener {
 			prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS);
 
 		// TODO: don't think these are needed
-		final String InitialLeftPortText = InitialBaseDirText + "/left_port.png";
-		final String InitialLeft2PortText = InitialBaseDirText + "/left_port2.png";
-		final String InitialRightPortText = InitialBaseDirText + "/right_port.png";
-		final String InitialRight2PortText = InitialBaseDirText + "/right_port2.png";
+		//final String InitialLeftPortText = InitialBaseDirText + "/left_port.png";
+		//final String InitialLeft2PortText = InitialBaseDirText + "/left_port2.png";
+		//final String InitialRightPortText = InitialBaseDirText + "/right_port.png";
+		//final String InitialRight2PortText = InitialBaseDirText + "/right_port2.png";
 		/* Sets GUI style/theme */
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -635,28 +643,38 @@ public class Updater implements ActionListener {
 			}
 		}
 		/* Settings elements instantiation */
-		namesLabel = new JAliasedLabel("List of Names");
+		namesLabel = new JAliasedLabel("Names File File Path:");
 		namesText = new JAliasedTextField(InitialNamesText);
+
+		namesFieldsLabel = new JAliasedLabel("Names Fields File Paths:");
 		leftNameText = new JAliasedTextField(InitialLeftNameText);
 		left2NameText = new JAliasedTextField(InitialLeft2NameText);
 		rightNameText = new JAliasedTextField(InitialRightNameText);
 		right2NameText = new JAliasedTextField(InitialRight2NameText);
-		leftCommentatorNameText = new JAliasedTextField(InitialLeftCommentatorNameText);
-		rightCommentatorNameText = new JAliasedTextField(InitialRightCommentatorNameText);
+
+		scoresFieldsLabel = new JAliasedLabel("Scores Fields File Paths:");
 		leftScoreText = new JAliasedTextField(InitialLeftScoreText);
 		rightScoreText = new JAliasedTextField(InitialRightScoreText);
+
+		setInfoFieldsLabel = new JAliasedLabel("Set Info Fields File Paths:");
 		bracketPositionText = new JAliasedTextField(InitialBracketPositionText);
 		roundFormatText = new JAliasedTextField(InitialRoundFormatText);
+
+		commentatorFieldsLabel = new JAliasedLabel("Commentator Names Fields File Paths:");
+		leftCommentatorNameText = new JAliasedTextField(InitialLeftCommentatorNameText);
+		rightCommentatorNameText = new JAliasedTextField(InitialRightCommentatorNameText);
+
+		stockIconFieldsLabel = new JAliasedLabel("Stock Icon File Paths:");
 		leftStockIconText = new JAliasedTextField(InitialLeftStockIconText);
 		left2StockIconText = new JAliasedTextField(InitialLeft2StockIconText);
 		rightStockIconText = new JAliasedTextField(InitialRightStockIconText);
 		right2StockIconText = new JAliasedTextField(InitialRight2StockIconText);
-		leftPortText = new JAliasedTextField(InitialLeftPortText);
-		left2PortText = new JAliasedTextField(InitialLeft2PortText);
-		rightPortText = new JAliasedTextField(InitialRightPortText);
-		right2PortText = new JAliasedTextField(InitialRight2PortText);
-		StockIconDirLabel = new JAliasedLabel("Stock Icon Path:");
-		PortsDirLabel = new JAliasedLabel("Ports Path:");
+		//leftPortText = new JAliasedTextField(InitialLeftPortText);
+		//left2PortText = new JAliasedTextField(InitialLeft2PortText);
+		//rightPortText = new JAliasedTextField(InitialRightPortText);
+		//right2PortText = new JAliasedTextField(InitialRight2PortText);
+		StockIconDirLabel = new JAliasedLabel("Stock Icon Directory Path:");
+		PortsDirLabel = new JAliasedLabel("Ports Directory Path:");
 		StockIconDirText = new JAliasedTextField(InitialStockIconText);
 		PortsDirText = new JAliasedTextField(InitialPortsText);
 
@@ -671,7 +689,7 @@ public class Updater implements ActionListener {
 				super.paintComponent(g);
 			}
 		};
-		// TODO change init
+		// TODO change init, not OS neutral
 		left1PS = new GUIPlayerSection(5, 5, "Left",
 			InitialBaseDirText + "/names.txt",
 			InitialBaseDirText + "/left_name.txt",
@@ -687,7 +705,9 @@ public class Updater implements ActionListener {
 			InitialBaseDirText + "/stock_icons",
 			InitialBaseDirText + "/ports",
 			InitialBaseDirText + "/right_port.png");
-		left2PS = new GUIPlayerSection(left1PS.getX(), left1PS.getY() + left1PS.getHeight() + small_gap_width, "Left 2",
+		left2PS = new GUIPlayerSection(
+			left1PS.getX(), left1PS.getY() + left1PS.getHeight() + small_gap_width,
+			"Left 2",
 			InitialBaseDirText + "/names.txt",
 			InitialBaseDirText + "/left_name2.txt",
 			InitialBaseDirText + "/left_stock_icon2.png",
@@ -996,9 +1016,16 @@ public class Updater implements ActionListener {
 			dir_text_field_width * 2 + small_gap_width,
 			dir_text_element_height);
 		namesText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		leftNameText.setBounds(
+
+		namesFieldsLabel.setBounds(
 			namesText.getX(),
 			namesText.getY() + namesText.getHeight() + small_gap_width,
+			dir_text_field_width,
+			dir_text_element_height);
+		namesFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		leftNameText.setBounds(
+			namesText.getX(),
+			namesFieldsLabel.getY() + namesFieldsLabel.getHeight() + small_gap_width,
 			dir_text_field_width,
 			dir_text_element_height);
 		leftNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1020,9 +1047,16 @@ public class Updater implements ActionListener {
 			dir_text_field_width,
 			dir_text_element_height);
 		right2NameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		leftScoreText.setBounds(
+
+		scoresFieldsLabel.setBounds(
 			rightNameText.getX(),
 			rightNameText.getY() + rightNameText.getHeight() + small_gap_width,
+			dir_text_field_width,
+			dir_text_element_height);
+		scoresFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		leftScoreText.setBounds(
+			scoresFieldsLabel.getX(),
+			scoresFieldsLabel.getY() + scoresFieldsLabel.getHeight() + small_gap_width,
 			dir_text_field_width,
 			dir_text_element_height);
 		leftScoreText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1032,9 +1066,16 @@ public class Updater implements ActionListener {
 			dir_text_field_width,
 			dir_text_element_height);
 		rightScoreText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		bracketPositionText.setBounds(
+
+		setInfoFieldsLabel.setBounds(
 			leftScoreText.getX(),
 			leftScoreText.getY() + leftScoreText.getHeight() + small_gap_width,
+			dir_text_field_width * 2,
+			dir_text_element_height);
+		setInfoFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		bracketPositionText.setBounds(
+			setInfoFieldsLabel.getX(),
+			setInfoFieldsLabel.getY() + setInfoFieldsLabel.getHeight() + small_gap_width,
 			dir_text_field_width,
 			dir_text_element_height);
 		bracketPositionText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1044,9 +1085,16 @@ public class Updater implements ActionListener {
 			dir_text_field_width,
 			dir_text_element_height);
 		roundFormatText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		leftCommentatorNameText.setBounds(
+
+		commentatorFieldsLabel.setBounds(
 			bracketPositionText.getX(),
 			bracketPositionText.getY() + bracketPositionText.getHeight() + small_gap_width,
+			dir_text_field_width * 2,
+			dir_text_element_height);
+		commentatorFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		leftCommentatorNameText.setBounds(
+			commentatorFieldsLabel.getX(),
+			commentatorFieldsLabel.getY() + commentatorFieldsLabel.getHeight() + small_gap_width,
 			dir_text_field_width,
 			dir_text_element_height);
 		leftCommentatorNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1056,9 +1104,16 @@ public class Updater implements ActionListener {
 			dir_text_field_width,
 			dir_text_element_height);
 		rightCommentatorNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
-		leftStockIconText.setBounds(
+
+		stockIconFieldsLabel.setBounds(
 			leftCommentatorNameText.getX(),
 			leftCommentatorNameText.getY() + leftCommentatorNameText.getHeight() + small_gap_width,
+			dir_text_field_width * 2,
+			dir_text_element_height);
+		stockIconFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		leftStockIconText.setBounds(
+			stockIconFieldsLabel.getX(),
+			stockIconFieldsLabel.getY() + stockIconFieldsLabel.getHeight() + small_gap_width,
 			dir_text_field_width,
 			dir_text_element_height);
 		leftStockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1386,16 +1441,21 @@ public class Updater implements ActionListener {
 
 		paneSettings.add(namesLabel);
 		paneSettings.add(namesText);
+		paneSettings.add(namesFieldsLabel);
 		paneSettings.add(leftNameText);
 		paneSettings.add(left2NameText);
 		paneSettings.add(rightNameText);
 		paneSettings.add(right2NameText);
+		paneSettings.add(scoresFieldsLabel);
 		paneSettings.add(leftScoreText);
 		paneSettings.add(rightScoreText);
+		paneSettings.add(setInfoFieldsLabel);
 		paneSettings.add(bracketPositionText);
 		paneSettings.add(roundFormatText);
+		paneSettings.add(commentatorFieldsLabel);
 		paneSettings.add(leftCommentatorNameText);
 		paneSettings.add(rightCommentatorNameText);
+		paneSettings.add(stockIconFieldsLabel);
 		paneSettings.add(leftStockIconText);
 		paneSettings.add(left2StockIconText);
 		paneSettings.add(rightStockIconText);
