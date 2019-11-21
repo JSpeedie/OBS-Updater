@@ -249,6 +249,14 @@ public class Updater implements ActionListener {
 	private JAliasedButton Right2NameBrowseButton;
 	private JAliasedButton LeftScoreBrowseButton;
 	private JAliasedButton RightScoreBrowseButton;
+	private JAliasedButton BracketPositionBrowseButton;
+	private JAliasedButton RoundFormatBrowseButton;
+	private JAliasedButton LeftCommentatorBrowseButton;
+	private JAliasedButton RightCommentatorBrowseButton;
+	private JAliasedButton LeftStockIconBrowseButton;
+	private JAliasedButton Left2StockIconBrowseButton;
+	private JAliasedButton RightStockIconBrowseButton;
+	private JAliasedButton Right2StockIconBrowseButton;
 	private JAliasedButton StockIconDirBrowseButton;
 	private JAliasedButton PortsDirBrowseButton;
 
@@ -782,6 +790,14 @@ public class Updater implements ActionListener {
 		Right2NameBrowseButton = new JAliasedButton("Browse...");
 		LeftScoreBrowseButton = new JAliasedButton("Browse...");
 		RightScoreBrowseButton = new JAliasedButton("Browse...");
+		BracketPositionBrowseButton = new JAliasedButton("Browse...");
+		RoundFormatBrowseButton = new JAliasedButton("Browse...");
+		LeftCommentatorBrowseButton = new JAliasedButton("Browse...");
+		RightCommentatorBrowseButton = new JAliasedButton("Browse...");
+		LeftStockIconBrowseButton = new JAliasedButton("Browse...");
+		Left2StockIconBrowseButton = new JAliasedButton("Browse...");
+		RightStockIconBrowseButton = new JAliasedButton("Browse...");
+		Right2StockIconBrowseButton = new JAliasedButton("Browse...");
 		StockIconDirBrowseButton = new JAliasedButton("Browse...");
 		PortsDirBrowseButton = new JAliasedButton("Browse...");
 
@@ -1258,12 +1274,60 @@ public class Updater implements ActionListener {
 			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		bracketPositionText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		BracketPositionBrowseButton.setBounds(
+			bracketPositionText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			bracketPositionText.getY(),
+			button_width,
+			dir_text_element_height);
+		BracketPositionBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		BracketPositionBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Bracket Position file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						bracketPositionText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(BRACKET_POSITION_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		roundFormatText.setBounds(
 			bracketPositionText.getX(),
 			bracketPositionText.getY() + bracketPositionText.getHeight() + small_gap_width,
 			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		roundFormatText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RoundFormatBrowseButton.setBounds(
+			roundFormatText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			roundFormatText.getY(),
+			button_width,
+			dir_text_element_height);
+		RoundFormatBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RoundFormatBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Round Format file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						roundFormatText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(ROUND_FORMAT_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 
 		commentatorFieldsLabel.setBounds(
 			roundFormatText.getX(),
@@ -1277,12 +1341,60 @@ public class Updater implements ActionListener {
 			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		leftCommentatorNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		LeftCommentatorBrowseButton.setBounds(
+			leftCommentatorNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			leftCommentatorNameText.getY(),
+			button_width,
+			dir_text_element_height);
+		LeftCommentatorBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		LeftCommentatorBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Left Commentator Name file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						leftCommentatorNameText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(LEFT_COMMENTATOR_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		rightCommentatorNameText.setBounds(
 			leftCommentatorNameText.getX(),
 			leftCommentatorNameText.getY() + leftCommentatorNameText.getHeight() + small_gap_width,
 			(dir_text_field_width * 2) - button_width,
 			dir_text_element_height);
 		rightCommentatorNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RightCommentatorBrowseButton.setBounds(
+			rightCommentatorNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			rightCommentatorNameText.getY(),
+			button_width,
+			dir_text_element_height);
+		RightCommentatorBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		RightCommentatorBrowseButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser jfc = new JFileChooser();
+				// TODO: this should maybe change to users home directory?
+				//jfc.setCurrentDirectory(new File(prefs.get(FILE_PORTS, DEFAULT_FILE_PORTS)));
+				jfc.setDialogTitle("Select Right Commentator Name file...");
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				if (jfc.showOpenDialog(paneSettings) == JFileChooser.APPROVE_OPTION) {
+					try {
+						rightCommentatorNameText.setText(jfc.getSelectedFile().getAbsolutePath());
+						prefs.put(RIGHT_COMMENTATOR_FP, jfc.getSelectedFile().getAbsolutePath());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 
 		stockIconFieldsLabel.setBounds(
 			rightCommentatorNameText.getX(),
@@ -1641,14 +1753,21 @@ public class Updater implements ActionListener {
 		paneSettings.add(setInfoFieldsLabel);
 		paneSettings.add(bracketPositionText);
 		paneSettings.add(roundFormatText);
+		paneSettings.add(BracketPositionBrowseButton);
+		paneSettings.add(RoundFormatBrowseButton);
+
 		paneSettings.add(commentatorFieldsLabel);
 		paneSettings.add(leftCommentatorNameText);
 		paneSettings.add(rightCommentatorNameText);
+		paneSettings.add(LeftCommentatorBrowseButton);
+		paneSettings.add(RightCommentatorBrowseButton);
+
 		paneSettings.add(stockIconFieldsLabel);
 		paneSettings.add(leftStockIconText);
 		paneSettings.add(left2StockIconText);
 		paneSettings.add(rightStockIconText);
 		paneSettings.add(right2StockIconText);
+
 		paneSettings.add(StockIconDirLabel);
 		paneSettings.add(StockIconDirText);
 		paneSettings.add(StockIconDirBrowseButton);
