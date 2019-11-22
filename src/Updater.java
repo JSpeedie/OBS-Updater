@@ -862,7 +862,7 @@ public class Updater implements ActionListener {
 			left1PS.getX() + left1PS.getWidth() + small_gap_width,
 			left1PS.getCharacterBoxY(),
 			button_width,
-			element_height);
+			element_height + small_gap_width + (int) (element_height * 1.5));
 		switchStockIcons1.setMargin(new Insets(0, 0, 0, 0));
 		switchStockIcons1.addActionListener(new ActionListener() {
 			@Override
@@ -891,7 +891,7 @@ public class Updater implements ActionListener {
 			left2PS.getX() + left2PS.getWidth() + small_gap_width,
 			left2PS.getCharacterBoxY(),
 			button_width,
-			element_height);
+			element_height + small_gap_width + (int) (element_height * 1.5));
 		switchStockIcons2.setMargin(new Insets(0, 0, 0, 0));
 		switchStockIcons2.addActionListener(new ActionListener() {
 			@Override
@@ -950,7 +950,7 @@ public class Updater implements ActionListener {
 			left1PS.getX() + left1PS.getWidth() + small_gap_width,
 			left1PS.getPortsListY(),
 			button_width,
-			element_height);
+			(int) (element_height * 1.5));
 		switchPorts1.setMargin(new Insets(0, 0, 0, 0));
 		switchPorts1.addActionListener(new ActionListener() {
 			@Override
@@ -967,7 +967,7 @@ public class Updater implements ActionListener {
 			left2PS.getX() + left2PS.getWidth() + small_gap_width,
 			left2PS.getPortsListY(),
 			button_width,
-			element_height);
+			(int) (element_height * 1.5));
 		switchPorts2.setMargin(new Insets(0, 0, 0, 0));
 		switchPorts2.addActionListener(new ActionListener() {
 			@Override
