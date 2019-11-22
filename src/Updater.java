@@ -260,6 +260,7 @@ public class Updater implements ActionListener {
 	private JAliasedButton Right2StockIconBrowseButton;
 	private JAliasedButton StockIconDirBrowseButton;
 	private JAliasedButton PortsDirBrowseButton;
+	private JScrollPane settingsPaneScroller;
 
 	/* Custom Cell Renderers {{{ */
 	public class StockIconListCellRenderer extends DefaultListCellRenderer {
@@ -807,13 +808,20 @@ public class Updater implements ActionListener {
 		JPanel paneUpdating = new JPanel(null);
 		JPanel paneSettings = new JPanel(null);
 		paneUpdating.setPreferredSize(paneUpdating.getPreferredSize());
-		paneSettings.setPreferredSize(paneSettings.getPreferredSize());
+		//paneSettings.setPreferredSize(paneSettings.getPreferredSize());
+		paneSettings.setPreferredSize(new Dimension(5 + (dir_text_field_width * 2) + small_gap_width,
+			1000));
+		settingsPaneScroller = new JScrollPane(paneSettings);
+		paneSettings.setAutoscrolls(true);
+		//settingsPaneScroller.setPreferredSize(new Dimension(800, 300));
+		settingsPaneScroller.getVerticalScrollBar().setUnitIncrement(16);
+		//settingsPaneScroller.setPreferredSize(new Dimension(paneSettings.getWidth(), paneSettings.getHeight()));
 		paneUpdating.validate();
 		paneSettings.validate();
 		JFrame frame = new JFrame("Updater");
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setSize(window_width, window_height);
-		frame.setLocation(10, 40);
+		//frame.setLocation(10, 40);
 		frame.setVisible(true);
 		// frame.setIconImage(new ImageIcon(imgURL).getImage());
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -1903,7 +1911,7 @@ public class Updater implements ActionListener {
 		paneSettings.add(PortsDirBrowseButton);
 		paneSettings.add(reloadFilesButton);
 		tabbedPane.addTab("Updating", paneUpdating);
-		tabbedPane.addTab("Settings", paneSettings);
+		tabbedPane.addTab("Settings", settingsPaneScroller);
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 	}
 
