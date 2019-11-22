@@ -36,7 +36,7 @@ public class GUIPlayerSection {
 	final int element_height = 30;
 	final int dir_text_element_height = 24;
 	final int button_width = 80;
-	final int combo_box_width = 190;
+	final int combo_box_width = 220;
 	final int icon_preview_width = 24 * 2;
 	final int dir_text_field_width = 225;
 	final int window_width = (2 * combo_box_width) + (button_width) + (10 * small_gap_width);
@@ -218,6 +218,7 @@ public class GUIPlayerSection {
 		portsList = new JList();
 		portsListScroller = new JScrollPane(portsList);
 		stockList = new JList();
+		stockListScroller = new JScrollPane(stockList);
 
 		nameLabel.setFont(new Font("Arial", Font.BOLD, name_font_size));
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -351,22 +352,11 @@ public class GUIPlayerSection {
 			stockIconPreview.getY(),
 			combo_box_width - small_gap_width - stockIconPreview.getWidth(),
 			element_height);
-		stockList.setBounds(
-			stockIconPreview.getX(),
-			stockIconPreview.getY() + stockIconPreview.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
-		stockListScroller = new JScrollPane(stockList);
 		stockListScroller.setBounds(
 			stockIconPreview.getX(),
 			stockIconPreview.getY() + stockIconPreview.getHeight() + small_gap_width,
 			combo_box_width,
 			(int) (element_height * 1.5));
-		portsList.setBounds(
-			stockListScroller.getX(),
-			stockListScroller.getY() + stockListScroller.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
 		portsListScroller.setBounds(
 			stockListScroller.getX(),
 			stockListScroller.getY() + stockListScroller.getHeight() + small_gap_width,

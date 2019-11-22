@@ -108,7 +108,8 @@ public class Updater implements ActionListener {
 	final int dir_text_element_height = 30;
 	final int dir_label_element_height = 20;
 	final int button_width = 80;
-	final int combo_box_width = 190;
+	final int browse_button_width = 100;
+	final int combo_box_width = 220;
 	final int icon_preview_width = 24;
 	final int dir_text_field_width = 225;
 	final int window_width = (2 * combo_box_width) + (button_width) + (10 * small_gap_width);
@@ -120,6 +121,7 @@ public class Updater implements ActionListener {
 	final int stock_visible_rows = 26;
 	final int names_visible_rows = 30;
 	private boolean show2 = false;
+	private boolean flatLayout = false;
 	private boolean showCommentators = false;
 
 	/* Aliased GUI classes {{{ */
@@ -187,6 +189,7 @@ public class Updater implements ActionListener {
 	private GUIPlayerSection right2PS;
 	private JAliasedTextField leftScore;
 	private JAliasedTextField rightScore;
+	private JAliasedButton flatLayoutButton;
 	private JAliasedButton show2Button;
 	private JAliasedButton showCommentatorsButton;
 	private JAliasedButton leftScoreInc;
@@ -470,6 +473,144 @@ public class Updater implements ActionListener {
 		rightCommentatorName.setSelectedItem("" + stringFromFile(rightCommentatorNameFile));
 	}
 
+	private void setElementPositionsStandardLayout() {
+		left1PS.setLocation(5, 5);
+		right1PS.setLocation(
+			left1PS.getX() + left1PS.getWidth() + (2 * small_gap_width) + button_width,
+			left1PS.getY());
+		left2PS.setLocation(
+			left1PS.getX(),
+			left1PS.getY() + left1PS.getHeight() + small_gap_width);
+		right2PS.setLocation(
+			right1PS.getX(),
+			right1PS.getY() + right1PS.getHeight() + small_gap_width);
+
+		switchStockIcons1.setBounds(
+			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			left1PS.getCharacterBoxY(),
+			button_width,
+			element_height + small_gap_width + (int) (element_height * 1.5));
+		switchStockIcons2.setBounds(
+			left2PS.getX() + left2PS.getWidth() + small_gap_width,
+			left2PS.getCharacterBoxY(),
+			button_width,
+			element_height + small_gap_width + (int) (element_height * 1.5));
+		switchNames1.setBounds(
+			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			left1PS.getNameBoxY(),
+			button_width,
+			element_height);
+		switchNames2.setBounds(
+			left2PS.getX() + left2PS.getWidth() + small_gap_width,
+			left2PS.getNameBoxY(),
+			button_width,
+			element_height);
+		switchPorts1.setBounds(
+			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			left1PS.getPortsListY(),
+			button_width,
+			(int) (element_height * 1.5));
+		switchPorts2.setBounds(
+			left2PS.getX() + left2PS.getWidth() + small_gap_width,
+			left2PS.getPortsListY(),
+			button_width,
+			(int) (element_height * 1.5));
+
+		setScorePositions();
+	}
+
+	private void setElementPositionsFlatLayout() {
+		leftScoreLabel.setLocation(
+			5,
+			5);
+		leftScoreDec.setLocation(
+			leftScoreLabel.getX(),
+			leftScoreLabel.getY() + leftScoreLabel.getHeight() + small_gap_width);
+		leftScore.setLocation(
+			leftScoreDec.getX() + leftScoreDec.getWidth() + 5,
+			leftScoreDec.getY());
+		leftScoreInc.setLocation(
+			leftScore.getX() + leftScore.getWidth() + 5,
+			leftScoreDec.getY());
+
+		left1PS.setLocation(leftScoreLabel.getX() + leftScoreLabel.getWidth() + small_gap_width,
+			leftScoreLabel.getY());
+
+		switchScore.setBounds(
+			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			left1PS.getY(),
+			button_width,
+			element_height);
+		switchStockIcons1.setLocation(left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			switchScore.getY() + switchScore.getHeight() + small_gap_width);
+		switchPorts1.setLocation(
+			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			switchStockIcons1.getY() + switchStockIcons1.getHeight() + small_gap_width);
+		switchNames1.setLocation(
+			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			switchPorts1.getY() + switchPorts1.getHeight() + small_gap_width);
+		switchCommentatorNames.setLocation(
+			switchNames1.getX(),
+			switchNames1.getY() + switchNames1.getHeight() + small_gap_width);
+
+		right1PS.setLocation(switchScore.getX() + switchScore.getWidth() + small_gap_width,
+			left1PS.getY());
+
+		rightScoreLabel.setLocation(
+			right1PS.getX() + right1PS.getWidth() + small_gap_width,
+			right1PS.getY());
+		rightScoreDec.setLocation(
+			rightScoreLabel.getX(),
+			rightScoreLabel.getY() + rightScoreLabel.getHeight() + small_gap_width);
+		rightScore.setLocation(
+			rightScoreDec.getX() + rightScoreDec.getWidth() + 5,
+			rightScoreDec.getY());
+		rightScoreInc.setLocation(
+			rightScore.getX() + rightScore.getWidth() + 5,
+			rightScoreDec.getY());
+
+		bracketPositionLabel.setBounds(
+			leftScoreDec.getX(),
+			leftScoreDec.getY() + leftScoreDec.getHeight() + small_gap_width,
+			combo_box_width,
+			element_height);
+		roundFormatLabel.setBounds(
+			rightScoreDec.getX(),
+			bracketPositionLabel.getY(),
+			combo_box_width,
+			element_height);
+		bracketPosition.setBounds(
+			bracketPositionLabel.getX(),
+			bracketPositionLabel.getY() + bracketPositionLabel.getHeight() + small_gap_width,
+			combo_box_width,
+			element_height);
+		roundFormat.setBounds(
+			rightScoreDec.getX(),
+			bracketPosition.getY(),
+			combo_box_width,
+			element_height);
+
+		showCommentatorsButton.setBounds(bracketPosition.getX(),
+			left1PS.getY() + left1PS.getHeight() - element_height,
+			element_height,
+			element_height);
+		leftCommentatorLabel.setBounds(
+			showCommentatorsButton.getX(),
+			showCommentatorsButton.getY(),
+			combo_box_width,
+			element_height);
+		rightCommentatorLabel.setBounds(
+			roundFormat.getX(),
+			showCommentatorsButton.getY(),
+			combo_box_width,
+			element_height);
+		leftCommentatorName.setLocation(
+			leftCommentatorLabel.getX(),
+			leftCommentatorLabel.getY() + leftCommentatorLabel.getHeight() + small_gap_width);
+		rightCommentatorName.setLocation(
+			rightCommentatorLabel.getX(),
+			rightCommentatorLabel.getY() + rightCommentatorLabel.getHeight() + small_gap_width);
+	}
 	private void setScorePositions() {
 		leftScoreLabel.setBounds(
 			left1PS.getX(),
@@ -597,6 +738,20 @@ public class Updater implements ActionListener {
 			show2Button.setText("+");
 		}
 		set2ElementsVisibility(show2);
+	}
+
+	private void toggleFlatLayout() {
+		if (flatLayout) {
+			show2Button.setVisible(false);
+			flatLayoutButton.setText("=");
+			setElementPositionsFlatLayout();
+			set2ElementsVisibility(false);
+		} else {
+			show2Button.setVisible(true);
+			flatLayoutButton.setText("_");
+			setElementPositionsStandardLayout();
+			set2ElementsVisibility(show2);
+		}
 	}
 
 	private void toggleCommentators() {
@@ -760,6 +915,7 @@ public class Updater implements ActionListener {
 			InitialBaseDirText + "/right_port2.png");
 		leftScore = new JAliasedTextField("");
 		rightScore = new JAliasedTextField("");
+		flatLayoutButton = new JAliasedButton("t");
 		show2Button = new JAliasedButton("t");
 		showCommentatorsButton = new JAliasedButton("t");
 		leftScoreInc = new JAliasedButton("+");
@@ -837,6 +993,17 @@ public class Updater implements ActionListener {
 				rightScore.setText("" + rightScoreValue);
 			}
 		};
+		flatLayoutButton.setBounds(left1PS.getX(),
+			left1PS.getY(),
+			element_height,
+			element_height);
+		flatLayoutButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				flatLayout = !flatLayout;
+				toggleFlatLayout();
+			}
+		});
 		// Second set of names
 		show2Button.setBounds(left1PS.getX(),
 			left1PS.getY() + left1PS.getHeight() + small_gap_width,
@@ -858,11 +1025,8 @@ public class Updater implements ActionListener {
 		});
 
 		/* Set the location of the elements */
-		switchStockIcons1.setBounds(
-			left1PS.getX() + left1PS.getWidth() + small_gap_width,
-			left1PS.getCharacterBoxY(),
-			button_width,
-			element_height + small_gap_width + (int) (element_height * 1.5));
+		setElementPositionsStandardLayout();
+
 		switchStockIcons1.setMargin(new Insets(0, 0, 0, 0));
 		switchStockIcons1.addActionListener(new ActionListener() {
 			@Override
@@ -887,11 +1051,6 @@ public class Updater implements ActionListener {
 				prefs.put(RIGHT1_CHAR, right1PS.getCharacter());
 			}
 		});
-		switchStockIcons2.setBounds(
-			left2PS.getX() + left2PS.getWidth() + small_gap_width,
-			left2PS.getCharacterBoxY(),
-			button_width,
-			element_height + small_gap_width + (int) (element_height * 1.5));
 		switchStockIcons2.setMargin(new Insets(0, 0, 0, 0));
 		switchStockIcons2.addActionListener(new ActionListener() {
 			@Override
@@ -917,11 +1076,6 @@ public class Updater implements ActionListener {
 			}
 		});
 
-		switchNames1.setBounds(
-			left1PS.getX() + left1PS.getWidth() + small_gap_width,
-			left1PS.getNameBoxY(),
-			button_width,
-			element_height);
 		switchNames1.setMargin(new Insets(0, 0, 0, 0));
 		switchNames1.addActionListener(new ActionListener() {
 			@Override
@@ -931,11 +1085,6 @@ public class Updater implements ActionListener {
 				right1PS.setName(tempLeftName);
 			}
 		});
-		switchNames2.setBounds(
-			left2PS.getX() + left2PS.getWidth() + small_gap_width,
-			left2PS.getNameBoxY(),
-			button_width,
-			element_height);
 		switchNames2.setMargin(new Insets(0, 0, 0, 0));
 		switchNames2.addActionListener(new ActionListener() {
 			@Override
@@ -946,11 +1095,6 @@ public class Updater implements ActionListener {
 			}
 		});
 
-		switchPorts1.setBounds(
-			left1PS.getX() + left1PS.getWidth() + small_gap_width,
-			left1PS.getPortsListY(),
-			button_width,
-			(int) (element_height * 1.5));
 		switchPorts1.setMargin(new Insets(0, 0, 0, 0));
 		switchPorts1.addActionListener(new ActionListener() {
 			@Override
@@ -963,11 +1107,6 @@ public class Updater implements ActionListener {
 				prefs.put(RIGHT1_PORT_FILE_PATH, (String) right1PS.getPortsFileName());
 			}
 		});
-		switchPorts2.setBounds(
-			left2PS.getX() + left2PS.getWidth() + small_gap_width,
-			left2PS.getPortsListY(),
-			button_width,
-			(int) (element_height * 1.5));
 		switchPorts2.setMargin(new Insets(0, 0, 0, 0));
 		switchPorts2.addActionListener(new ActionListener() {
 			@Override
@@ -1063,8 +1202,11 @@ public class Updater implements ActionListener {
 		/* Initialize the score elements and below to the right position */
 		show2 = false;
 		showCommentators = false;
+		flatLayout = false;
 		toggle2();
 		toggleCommentators();
+		toggleFlatLayout();
+
 		/* Settings elements */
 		namesLabel.setBounds(5, 5, dir_text_field_width * 2 + small_gap_width, dir_label_element_height);
 		namesLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
@@ -1077,7 +1219,7 @@ public class Updater implements ActionListener {
 		NamesBrowseButton.setBounds(
 			namesText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			namesText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		NamesBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		NamesBrowseButton.addActionListener(new ActionListener() {
@@ -1114,7 +1256,7 @@ public class Updater implements ActionListener {
 		LeftNameBrowseButton.setBounds(
 			leftNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			leftNameText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		LeftNameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		LeftNameBrowseButton.addActionListener(new ActionListener() {
@@ -1145,7 +1287,7 @@ public class Updater implements ActionListener {
 		Left2NameBrowseButton.setBounds(
 			left2NameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			left2NameText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		Left2NameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		Left2NameBrowseButton.addActionListener(new ActionListener() {
@@ -1176,7 +1318,7 @@ public class Updater implements ActionListener {
 		RightNameBrowseButton.setBounds(
 			rightNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			rightNameText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		RightNameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		RightNameBrowseButton.addActionListener(new ActionListener() {
@@ -1207,7 +1349,7 @@ public class Updater implements ActionListener {
 		Right2NameBrowseButton.setBounds(
 			right2NameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			right2NameText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		Right2NameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		Right2NameBrowseButton.addActionListener(new ActionListener() {
@@ -1244,7 +1386,7 @@ public class Updater implements ActionListener {
 		LeftScoreBrowseButton.setBounds(
 			leftScoreText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			leftScoreText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		LeftScoreBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		LeftScoreBrowseButton.addActionListener(new ActionListener() {
@@ -1274,7 +1416,7 @@ public class Updater implements ActionListener {
 		RightScoreBrowseButton.setBounds(
 			rightScoreText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			rightScoreText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		RightScoreBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		RightScoreBrowseButton.addActionListener(new ActionListener() {
@@ -1311,7 +1453,7 @@ public class Updater implements ActionListener {
 		BracketPositionBrowseButton.setBounds(
 			bracketPositionText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			bracketPositionText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		BracketPositionBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		BracketPositionBrowseButton.addActionListener(new ActionListener() {
@@ -1341,7 +1483,7 @@ public class Updater implements ActionListener {
 		RoundFormatBrowseButton.setBounds(
 			roundFormatText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			roundFormatText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		RoundFormatBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		RoundFormatBrowseButton.addActionListener(new ActionListener() {
@@ -1378,7 +1520,7 @@ public class Updater implements ActionListener {
 		LeftCommentatorBrowseButton.setBounds(
 			leftCommentatorNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			leftCommentatorNameText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		LeftCommentatorBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		LeftCommentatorBrowseButton.addActionListener(new ActionListener() {
@@ -1408,7 +1550,7 @@ public class Updater implements ActionListener {
 		RightCommentatorBrowseButton.setBounds(
 			rightCommentatorNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			rightCommentatorNameText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		RightCommentatorBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		RightCommentatorBrowseButton.addActionListener(new ActionListener() {
@@ -1445,7 +1587,7 @@ public class Updater implements ActionListener {
 		LeftStockIconBrowseButton.setBounds(
 			leftStockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			leftStockIconText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		LeftStockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		LeftStockIconBrowseButton.addActionListener(new ActionListener() {
@@ -1475,7 +1617,7 @@ public class Updater implements ActionListener {
 		Left2StockIconBrowseButton.setBounds(
 			left2StockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			left2StockIconText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		Left2StockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		Left2StockIconBrowseButton.addActionListener(new ActionListener() {
@@ -1505,7 +1647,7 @@ public class Updater implements ActionListener {
 		RightStockIconBrowseButton.setBounds(
 			rightStockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			rightStockIconText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		RightStockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		RightStockIconBrowseButton.addActionListener(new ActionListener() {
@@ -1535,7 +1677,7 @@ public class Updater implements ActionListener {
 		Right2StockIconBrowseButton.setBounds(
 			right2StockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			right2StockIconText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		Right2StockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		Right2StockIconBrowseButton.addActionListener(new ActionListener() {
@@ -1572,7 +1714,7 @@ public class Updater implements ActionListener {
 		StockIconDirBrowseButton.setBounds(
 			StockIconDirText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			StockIconDirText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		StockIconDirBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		StockIconDirBrowseButton.addActionListener(new ActionListener() {
@@ -1607,7 +1749,7 @@ public class Updater implements ActionListener {
 		PortsDirBrowseButton.setBounds(
 			PortsDirText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
 			PortsDirText.getY(),
-			button_width,
+			browse_button_width,
 			dir_text_element_height);
 		PortsDirBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
 		PortsDirBrowseButton.addActionListener(new ActionListener() {
@@ -1641,7 +1783,7 @@ public class Updater implements ActionListener {
 			combo_box_width,
 			element_height);
 		bracketPosition.setFont(new Font("Arial", Font.BOLD, text_field_font_size));
-		showCommentatorsButton.setBounds(left1PS.getX(),
+		showCommentatorsButton.setBounds(bracketPosition.getX(),
 			bracketPosition.getY() + bracketPosition.getHeight() + small_gap_width,
 			element_height,
 			element_height);
@@ -1837,6 +1979,7 @@ public class Updater implements ActionListener {
 		paneUpdating.add(switchPorts1);
 		paneUpdating.add(switchPorts2);
 
+		paneUpdating.add(flatLayoutButton);
 		paneUpdating.add(show2Button);
 		paneUpdating.add(showCommentatorsButton);
 
