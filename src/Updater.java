@@ -346,6 +346,23 @@ public class Updater implements ActionListener {
 		}
 	}
 
+	private String readFromFile(File f) {
+		String read;
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(f));
+			if ((read = reader.readLine()) != null) {
+				return read;
+			} else {
+				System.err.println("Error: could not read from File");
+				return "";
+			}
+		} catch (Exception e) {
+			System.err.println("Error: could not read from File");
+			return "";
+		}
+	}
+
 	private String stringFromFile(File f) {
 		String ret = "";
 		String read;
@@ -413,6 +430,10 @@ public class Updater implements ActionListener {
 
 	private void updateElements() {
 		Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
+
+		String leftComName = (String) readFromFile(leftCommentatorNameFile);
+		String rightComName = (String) readFromFile(rightCommentatorNameFile);
+
 		/* Update stock icon path for each player section */
 		left1PS.setNamesPath(namesText.getText());
 		left2PS.setNamesPath(namesText.getText());
@@ -453,24 +474,21 @@ public class Updater implements ActionListener {
 		left2PS.setPortsFileName(prefs.get(LEFT2_PORT_FILE_PATH, DEFAULT_LEFT2_PORT_FILE_PATH));
 		right2PS.setPortsFileName(prefs.get(RIGHT2_PORT_FILE_PATH, DEFAULT_RIGHT2_PORT_FILE_PATH));
 
-		String leftComOldName = (String) leftCommentatorName.getSelectedItem();
-		String rightComOldName = (String) rightCommentatorName.getSelectedItem();
-		leftCommentatorName.removeAllItems();
-		rightCommentatorName.removeAllItems();
-		for (int i = 0; i < namesList.size(); i++) {
-			leftCommentatorName.addItem(namesList.get(i));
-			rightCommentatorName.addItem(namesList.get(i));
-		}
-		leftCommentatorName.setSelectedItem(leftComOldName);
-		rightCommentatorName.setSelectedItem(rightComOldName);
 		readFromFile(leftScoreFile, (JTextComponent) leftScore);
 		// leftScoreValue = Integer.parseInt(leftScore.getText());
 		readFromFile(rightScoreFile, (JTextComponent) rightScore);
 		// rightScoreValue = Integer.parseInt(rightScore.getText());
 		readFromFile(bracketPositionFile, (JTextComponent) bracketPosition);
 		readFromFile(roundFormatFile, (JTextComponent) roundFormat);
-		leftCommentatorName.setSelectedItem("" + stringFromFile(leftCommentatorNameFile));
-		rightCommentatorName.setSelectedItem("" + stringFromFile(rightCommentatorNameFile));
+
+		leftCommentatorName.removeAllItems();
+		rightCommentatorName.removeAllItems();
+		for (int i = 0; i < namesList.size(); i++) {
+			leftCommentatorName.addItem(namesList.get(i));
+			rightCommentatorName.addItem(namesList.get(i));
+		}
+		leftCommentatorName.setSelectedItem(leftComName);
+		rightCommentatorName.setSelectedItem(rightComName);
 	}
 
 	private void setElementPositionsStandardLayout() {
@@ -1171,10 +1189,8 @@ public class Updater implements ActionListener {
 		leftCommentatorName.setMaximumRowCount(names_visible_rows);
 		leftCommentatorName.setFont(new Font("Arial", Font.BOLD, name_font_size));
 		leftCommentatorName.setEditable(true);
-		switchCommentatorNames.setMargin(new Insets(0, 0, 0, 0));
-		rightCommentatorName.setMaximumRowCount(names_visible_rows);
-		rightCommentatorName.setFont(new Font("Arial", Font.BOLD, name_font_size));
-		rightCommentatorName.setEditable(true);
+		// The combobox must be set to editable before this method call will work
+		leftCommentatorName.setSelectedItem(readFromFile(leftCommentatorNameFile));
 		leftCommentatorName.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1182,6 +1198,12 @@ public class Updater implements ActionListener {
 				writeToFile(leftCommentatorNameValue, leftCommentatorNameFile);
 			}
 		});
+
+		rightCommentatorName.setMaximumRowCount(names_visible_rows);
+		rightCommentatorName.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		rightCommentatorName.setEditable(true);
+		// The combobox must be set to editable before this method call will work
+		rightCommentatorName.setSelectedItem(readFromFile(rightCommentatorNameFile));
 		rightCommentatorName.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1189,6 +1211,8 @@ public class Updater implements ActionListener {
 				writeToFile(rightCommentatorNameValue, rightCommentatorNameFile);
 			}
 		});
+
+		switchCommentatorNames.setMargin(new Insets(0, 0, 0, 0));
 		switchCommentatorNames.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
