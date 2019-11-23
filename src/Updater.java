@@ -434,6 +434,11 @@ public class Updater implements ActionListener {
 		String leftComName = (String) readFromFile(leftCommentatorNameFile);
 		String rightComName = (String) readFromFile(rightCommentatorNameFile);
 
+		String left1Name = (String) readFromFile(leftNameFile);
+		String right1Name = (String) readFromFile(rightNameFile);
+		String left2Name = (String) readFromFile(left2NameFile);
+		String right2Name = (String) readFromFile(right2NameFile);
+
 		/* Update stock icon path for each player section */
 		left1PS.setNamesPath(namesText.getText());
 		left2PS.setNamesPath(namesText.getText());
@@ -456,6 +461,12 @@ public class Updater implements ActionListener {
 		right1PS.updateElements(namesList, iconsList, portsList);
 		left2PS.updateElements(namesList, iconsList, portsList);
 		right2PS.updateElements(namesList, iconsList, portsList);
+
+		/* Set the names to be what is currently written in their corresponding files */
+		left1PS.setName(left1Name);
+		right1PS.setName(right1Name);
+		left2PS.setName(left2Name);
+		right2PS.setName(right2Name);
 
 		/* Set characters to remembered characters */
 		left1PS.setCharacter(prefs.get(LEFT1_CHAR, DEFAULT_LEFT1_CHAR));
