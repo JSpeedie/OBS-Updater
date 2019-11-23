@@ -20,6 +20,8 @@ import javax.swing.text.*;
 import static java.nio.file.StandardCopyOption.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
+import ca.updater.constants.GUI;
+
 public class Updater implements ActionListener {
 	private final Map<String, ImageIcon> StockIconMap = new HashMap<>();
 	private final Map<String, ImageIcon> PortIconMap = new HashMap<>();
@@ -100,26 +102,8 @@ public class Updater implements ActionListener {
 	private String rightCommentatorNameValue = "unnamed";
 	private int leftScoreValue = 0;
 	private int rightScoreValue = 0;
-	private int scoreY;
 	/* GUI variables */
-	final int gap_width = 15;
-	final int small_gap_width = 5;
-	final int element_height = 30;
-	final int dir_text_element_height = 30;
-	final int dir_label_element_height = 20;
-	final int button_width = 80;
-	final int browse_button_width = 100;
-	final int combo_box_width = 220;
-	final int icon_preview_width = 24;
-	final int dir_text_field_width = 225;
-	final int window_width = (2 * combo_box_width) + (button_width) + (10 * small_gap_width);
-	final int window_height = (16 * element_height) + (6 * small_gap_width) + (10 * gap_width);
-	final int name_font_size = 16;
-	final int score_font_size = 36;
-	final int text_field_font_size = 14;
-	final int dir_text_field_font_size = 13;
-	final int stock_visible_rows = 26;
-	final int names_visible_rows = 30;
+	private int scoreY;
 	private boolean show2 = false;
 	private boolean flatLayout = false;
 	private boolean showCommentators = false;
@@ -505,45 +489,45 @@ public class Updater implements ActionListener {
 	private void setElementPositionsStandardLayout() {
 		left1PS.setLocation(5, 5);
 		right1PS.setLocation(
-			left1PS.getX() + left1PS.getWidth() + (2 * small_gap_width) + button_width,
+			left1PS.getX() + left1PS.getWidth() + (2 * GUI.small_gap_width) + GUI.button_width,
 			left1PS.getY());
 		left2PS.setLocation(
 			left1PS.getX(),
-			left1PS.getY() + left1PS.getHeight() + small_gap_width);
+			left1PS.getY() + left1PS.getHeight() + GUI.small_gap_width);
 		right2PS.setLocation(
 			right1PS.getX(),
-			right1PS.getY() + right1PS.getHeight() + small_gap_width);
+			right1PS.getY() + right1PS.getHeight() + GUI.small_gap_width);
 
 		switchStockIcons1.setBounds(
-			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			left1PS.getX() + left1PS.getWidth() + GUI.small_gap_width,
 			left1PS.getCharacterBoxY(),
-			button_width,
-			element_height + small_gap_width + (int) (element_height * 1.5));
+			GUI.button_width,
+			GUI.element_height + GUI.small_gap_width + (int) (GUI.element_height * 1.5));
 		switchStockIcons2.setBounds(
-			left2PS.getX() + left2PS.getWidth() + small_gap_width,
+			left2PS.getX() + left2PS.getWidth() + GUI.small_gap_width,
 			left2PS.getCharacterBoxY(),
-			button_width,
-			element_height + small_gap_width + (int) (element_height * 1.5));
+			GUI.button_width,
+			GUI.element_height + GUI.small_gap_width + (int) (GUI.element_height * 1.5));
 		switchNames1.setBounds(
-			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			left1PS.getX() + left1PS.getWidth() + GUI.small_gap_width,
 			left1PS.getNameBoxY(),
-			button_width,
-			element_height);
+			GUI.button_width,
+			GUI.element_height);
 		switchNames2.setBounds(
-			left2PS.getX() + left2PS.getWidth() + small_gap_width,
+			left2PS.getX() + left2PS.getWidth() + GUI.small_gap_width,
 			left2PS.getNameBoxY(),
-			button_width,
-			element_height);
+			GUI.button_width,
+			GUI.element_height);
 		switchPorts1.setBounds(
-			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			left1PS.getX() + left1PS.getWidth() + GUI.small_gap_width,
 			left1PS.getPortsListY(),
-			button_width,
-			(int) (element_height * 1.5));
+			GUI.button_width,
+			(int) (GUI.element_height * 1.5));
 		switchPorts2.setBounds(
-			left2PS.getX() + left2PS.getWidth() + small_gap_width,
+			left2PS.getX() + left2PS.getWidth() + GUI.small_gap_width,
 			left2PS.getPortsListY(),
-			button_width,
-			(int) (element_height * 1.5));
+			GUI.button_width,
+			(int) (GUI.element_height * 1.5));
 
 		setScorePositions();
 	}
@@ -554,7 +538,7 @@ public class Updater implements ActionListener {
 			5);
 		leftScoreDec.setLocation(
 			leftScoreLabel.getX(),
-			leftScoreLabel.getY() + leftScoreLabel.getHeight() + small_gap_width);
+			leftScoreLabel.getY() + leftScoreLabel.getHeight() + GUI.small_gap_width);
 		leftScore.setLocation(
 			leftScoreDec.getX() + leftScoreDec.getWidth() + 5,
 			leftScoreDec.getY());
@@ -562,35 +546,35 @@ public class Updater implements ActionListener {
 			leftScore.getX() + leftScore.getWidth() + 5,
 			leftScoreDec.getY());
 
-		left1PS.setLocation(leftScoreLabel.getX() + leftScoreLabel.getWidth() + small_gap_width,
+		left1PS.setLocation(leftScoreLabel.getX() + leftScoreLabel.getWidth() + GUI.small_gap_width,
 			leftScoreLabel.getY());
 
 		switchScore.setBounds(
-			left1PS.getX() + left1PS.getWidth() + small_gap_width,
+			left1PS.getX() + left1PS.getWidth() + GUI.small_gap_width,
 			left1PS.getY(),
-			button_width,
-			element_height);
-		switchStockIcons1.setLocation(left1PS.getX() + left1PS.getWidth() + small_gap_width,
-			switchScore.getY() + switchScore.getHeight() + small_gap_width);
+			GUI.button_width,
+			GUI.element_height);
+		switchStockIcons1.setLocation(left1PS.getX() + left1PS.getWidth() + GUI.small_gap_width,
+			switchScore.getY() + switchScore.getHeight() + GUI.small_gap_width);
 		switchPorts1.setLocation(
-			left1PS.getX() + left1PS.getWidth() + small_gap_width,
-			switchStockIcons1.getY() + switchStockIcons1.getHeight() + small_gap_width);
+			left1PS.getX() + left1PS.getWidth() + GUI.small_gap_width,
+			switchStockIcons1.getY() + switchStockIcons1.getHeight() + GUI.small_gap_width);
 		switchNames1.setLocation(
-			left1PS.getX() + left1PS.getWidth() + small_gap_width,
-			switchPorts1.getY() + switchPorts1.getHeight() + small_gap_width);
+			left1PS.getX() + left1PS.getWidth() + GUI.small_gap_width,
+			switchPorts1.getY() + switchPorts1.getHeight() + GUI.small_gap_width);
 		switchCommentatorNames.setLocation(
 			switchNames1.getX(),
-			switchNames1.getY() + switchNames1.getHeight() + small_gap_width);
+			switchNames1.getY() + switchNames1.getHeight() + GUI.small_gap_width);
 
-		right1PS.setLocation(switchScore.getX() + switchScore.getWidth() + small_gap_width,
+		right1PS.setLocation(switchScore.getX() + switchScore.getWidth() + GUI.small_gap_width,
 			left1PS.getY());
 
 		rightScoreLabel.setLocation(
-			right1PS.getX() + right1PS.getWidth() + small_gap_width,
+			right1PS.getX() + right1PS.getWidth() + GUI.small_gap_width,
 			right1PS.getY());
 		rightScoreDec.setLocation(
 			rightScoreLabel.getX(),
-			rightScoreLabel.getY() + rightScoreLabel.getHeight() + small_gap_width);
+			rightScoreLabel.getY() + rightScoreLabel.getHeight() + GUI.small_gap_width);
 		rightScore.setLocation(
 			rightScoreDec.getX() + rightScoreDec.getWidth() + 5,
 			rightScoreDec.getY());
@@ -600,138 +584,138 @@ public class Updater implements ActionListener {
 
 		bracketPositionLabel.setBounds(
 			leftScoreDec.getX(),
-			leftScoreDec.getY() + leftScoreDec.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
+			leftScoreDec.getY() + leftScoreDec.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
 		roundFormatLabel.setBounds(
 			rightScoreDec.getX(),
 			bracketPositionLabel.getY(),
-			combo_box_width,
-			element_height);
+			GUI.combo_box_width,
+			GUI.element_height);
 		bracketPosition.setBounds(
 			bracketPositionLabel.getX(),
-			bracketPositionLabel.getY() + bracketPositionLabel.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
+			bracketPositionLabel.getY() + bracketPositionLabel.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
 		roundFormat.setBounds(
 			rightScoreDec.getX(),
 			bracketPosition.getY(),
-			combo_box_width,
-			element_height);
+			GUI.combo_box_width,
+			GUI.element_height);
 
 		showCommentatorsButton.setBounds(bracketPosition.getX(),
-			left1PS.getY() + left1PS.getHeight() - element_height,
-			element_height,
-			element_height);
+			left1PS.getY() + left1PS.getHeight() - GUI.element_height,
+			GUI.element_height,
+			GUI.element_height);
 		leftCommentatorLabel.setBounds(
 			showCommentatorsButton.getX(),
 			showCommentatorsButton.getY(),
-			combo_box_width,
-			element_height);
+			GUI.combo_box_width,
+			GUI.element_height);
 		rightCommentatorLabel.setBounds(
 			roundFormat.getX(),
 			showCommentatorsButton.getY(),
-			combo_box_width,
-			element_height);
+			GUI.combo_box_width,
+			GUI.element_height);
 		leftCommentatorName.setLocation(
 			leftCommentatorLabel.getX(),
-			leftCommentatorLabel.getY() + leftCommentatorLabel.getHeight() + small_gap_width);
+			leftCommentatorLabel.getY() + leftCommentatorLabel.getHeight() + GUI.small_gap_width);
 		rightCommentatorName.setLocation(
 			rightCommentatorLabel.getX(),
-			rightCommentatorLabel.getY() + rightCommentatorLabel.getHeight() + small_gap_width);
+			rightCommentatorLabel.getY() + rightCommentatorLabel.getHeight() + GUI.small_gap_width);
 	}
 	private void setScorePositions() {
 		leftScoreLabel.setBounds(
 			left1PS.getX(),
 			scoreY,
-			combo_box_width,
-			element_height);
+			GUI.combo_box_width,
+			GUI.element_height);
 		rightScoreLabel.setBounds(
 			right1PS.getX(),
 			scoreY,
-			combo_box_width,
-			element_height);
+			GUI.combo_box_width,
+			GUI.element_height);
 		leftScoreDec.setBounds(
 			leftScoreLabel.getX(),
-			leftScoreLabel.getY() + leftScoreLabel.getHeight() + small_gap_width,
-			(combo_box_width - (2 * small_gap_width)) / 3,
-			(int) (element_height * 1.5));
+			leftScoreLabel.getY() + leftScoreLabel.getHeight() + GUI.small_gap_width,
+			(GUI.combo_box_width - (2 * GUI.small_gap_width)) / 3,
+			(int) (GUI.element_height * 1.5));
 		leftScore.setBounds(
 			leftScoreDec.getX() + leftScoreDec.getWidth() + 5,
 			leftScoreDec.getY(),
-			(combo_box_width - (2 * small_gap_width)) / 3,
-			(int) (element_height * 1.5));
+			(GUI.combo_box_width - (2 * GUI.small_gap_width)) / 3,
+			(int) (GUI.element_height * 1.5));
 		leftScoreInc.setBounds(
 			leftScore.getX() + leftScore.getWidth() + 5,
 			leftScoreDec.getY(),
-			(combo_box_width - (2 * small_gap_width)) / 3,
-			(int) (element_height * 1.5));
-		switchScore.setBounds(left1PS.getX() + left1PS.getWidth() + small_gap_width,
-			leftScoreInc.getY(), button_width, (int) (element_height * 1.5));
+			(GUI.combo_box_width - (2 * GUI.small_gap_width)) / 3,
+			(int) (GUI.element_height * 1.5));
+		switchScore.setBounds(left1PS.getX() + left1PS.getWidth() + GUI.small_gap_width,
+			leftScoreInc.getY(), GUI.button_width, (int) (GUI.element_height * 1.5));
 		rightScoreDec.setBounds(
 			right1PS.getX(),
 			leftScoreDec.getY(),
-			(combo_box_width - (2 * small_gap_width)) / 3,
-			(int) (element_height * 1.5));
+			(GUI.combo_box_width - (2 * GUI.small_gap_width)) / 3,
+			(int) (GUI.element_height * 1.5));
 		rightScore.setBounds(
 			rightScoreDec.getX() + rightScoreDec.getWidth() + 5,
 			leftScoreDec.getY(),
-			(combo_box_width - (2 * small_gap_width)) / 3,
-			(int) (element_height * 1.5));
+			(GUI.combo_box_width - (2 * GUI.small_gap_width)) / 3,
+			(int) (GUI.element_height * 1.5));
 		rightScoreInc.setBounds(
 			rightScore.getX() + rightScore.getWidth() + 5,
 			leftScoreDec.getY(),
-			(combo_box_width - (2 * small_gap_width)) / 3,
-			(int) (element_height * 1.5));
+			(GUI.combo_box_width - (2 * GUI.small_gap_width)) / 3,
+			(int) (GUI.element_height * 1.5));
 		bracketPositionLabel.setBounds(
 			leftScoreDec.getX(),
-			leftScoreDec.getY() + leftScoreDec.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
+			leftScoreDec.getY() + leftScoreDec.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
 		roundFormatLabel.setBounds(
 			rightScoreDec.getX(),
 			bracketPositionLabel.getY(),
-			combo_box_width,
-			element_height);
+			GUI.combo_box_width,
+			GUI.element_height);
 		bracketPosition.setBounds(
 			bracketPositionLabel.getX(),
-			bracketPositionLabel.getY() + bracketPositionLabel.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
+			bracketPositionLabel.getY() + bracketPositionLabel.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
 		roundFormat.setBounds(
 			rightScoreDec.getX(),
 			bracketPosition.getY(),
-			combo_box_width,
-			element_height);
+			GUI.combo_box_width,
+			GUI.element_height);
 		leftCommentatorLabel.setBounds(
 			bracketPosition.getX(),
-			bracketPosition.getY() + bracketPosition.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
+			bracketPosition.getY() + bracketPosition.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
 		rightCommentatorLabel.setBounds(
 			roundFormat.getX(),
-			roundFormat.getY() + roundFormat.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
+			roundFormat.getY() + roundFormat.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
 		showCommentatorsButton.setBounds(left1PS.getX(),
-			bracketPosition.getY() + bracketPosition.getHeight() + small_gap_width,
-			element_height,
-			element_height);
+			bracketPosition.getY() + bracketPosition.getHeight() + GUI.small_gap_width,
+			GUI.element_height,
+			GUI.element_height);
 		leftCommentatorName.setBounds(
 			leftCommentatorLabel.getX(),
-			leftCommentatorLabel.getY() + leftCommentatorLabel.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
+			leftCommentatorLabel.getY() + leftCommentatorLabel.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
 		switchCommentatorNames.setBounds(
-			leftCommentatorName.getX() + leftCommentatorName.getWidth() + small_gap_width,
+			leftCommentatorName.getX() + leftCommentatorName.getWidth() + GUI.small_gap_width,
 			leftCommentatorName.getY(),
-			button_width,
-			element_height);
+			GUI.button_width,
+			GUI.element_height);
 		rightCommentatorName.setBounds(
-			switchCommentatorNames.getX() + switchCommentatorNames.getWidth() + small_gap_width,
+			switchCommentatorNames.getX() + switchCommentatorNames.getWidth() + GUI.small_gap_width,
 			leftCommentatorName.getY(),
-			combo_box_width,
-			element_height);
+			GUI.combo_box_width,
+			GUI.element_height);
 	}
 
 	private void set2ElementsVisibility(boolean visibility) {
@@ -752,9 +736,9 @@ public class Updater implements ActionListener {
 
 	private void setScoreY() {
 		if (show2) {
-			scoreY = left2PS.getY() + left2PS.getHeight() + small_gap_width;
+			scoreY = left2PS.getY() + left2PS.getHeight() + GUI.small_gap_width;
 		} else {
-			scoreY = left1PS.getY() + left1PS.getHeight() + small_gap_width;
+			scoreY = left1PS.getY() + left1PS.getHeight() + GUI.small_gap_width;
 		}
 	}
 
@@ -917,7 +901,7 @@ public class Updater implements ActionListener {
 			InitialBaseDirText + "/ports",
 			InitialBaseDirText + "/left_port.png");
 		right1PS = new GUIPlayerSection(
-			left1PS.getX() + left1PS.getWidth() + (2 * small_gap_width) + button_width, 5, "Right",
+			left1PS.getX() + left1PS.getWidth() + (2 * GUI.small_gap_width) + GUI.button_width, 5, "Right",
 			InitialBaseDirText + "/names.txt",
 			InitialBaseDirText + "/right_name.txt",
 			InitialBaseDirText + "/right_stock_icon.png",
@@ -925,7 +909,7 @@ public class Updater implements ActionListener {
 			InitialBaseDirText + "/ports",
 			InitialBaseDirText + "/right_port.png");
 		left2PS = new GUIPlayerSection(
-			left1PS.getX(), left1PS.getY() + left1PS.getHeight() + small_gap_width,
+			left1PS.getX(), left1PS.getY() + left1PS.getHeight() + GUI.small_gap_width,
 			"Left 2",
 			InitialBaseDirText + "/names.txt",
 			InitialBaseDirText + "/left_name2.txt",
@@ -934,7 +918,7 @@ public class Updater implements ActionListener {
 			InitialBaseDirText + "/ports",
 			InitialBaseDirText + "/left_port2.png");
 		right2PS = new GUIPlayerSection(
-			right1PS.getX(), right1PS.getY() + right1PS.getHeight() + small_gap_width,
+			right1PS.getX(), right1PS.getY() + right1PS.getHeight() + GUI.small_gap_width,
 			"Right 2",
 			InitialBaseDirText + "/names.txt",
 			InitialBaseDirText + "/right_name2.txt",
@@ -994,7 +978,7 @@ public class Updater implements ActionListener {
 		JPanel paneSettings = new JPanel(null);
 		paneUpdating.setPreferredSize(paneUpdating.getPreferredSize());
 		//paneSettings.setPreferredSize(paneSettings.getPreferredSize());
-		paneSettings.setPreferredSize(new Dimension(5 + (dir_text_field_width * 2) + small_gap_width,
+		paneSettings.setPreferredSize(new Dimension(5 + (GUI.dir_text_field_width * 2) + GUI.small_gap_width,
 			1000));
 		settingsPaneScroller = new JScrollPane(paneSettings);
 		paneSettings.setAutoscrolls(true);
@@ -1005,7 +989,7 @@ public class Updater implements ActionListener {
 		paneSettings.validate();
 		JFrame frame = new JFrame("Updater");
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		frame.setSize(window_width, window_height);
+		frame.setSize(GUI.window_width, GUI.window_height);
 		//frame.setLocation(10, 40);
 		frame.setVisible(true);
 		// frame.setIconImage(new ImageIcon(imgURL).getImage());
@@ -1024,8 +1008,8 @@ public class Updater implements ActionListener {
 		};
 		flatLayoutButton.setBounds(left1PS.getX(),
 			left1PS.getY(),
-			element_height,
-			element_height);
+			GUI.element_height,
+			GUI.element_height);
 		flatLayoutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1035,9 +1019,9 @@ public class Updater implements ActionListener {
 		});
 		// Second set of names
 		show2Button.setBounds(left1PS.getX(),
-			left1PS.getY() + left1PS.getHeight() + small_gap_width,
-			element_height,
-			element_height);
+			left1PS.getY() + left1PS.getHeight() + GUI.small_gap_width,
+			GUI.element_height,
+			GUI.element_height);
 		show2Button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1151,54 +1135,54 @@ public class Updater implements ActionListener {
 
 
 		/* Left Score Elements */
-		leftScoreLabel.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		leftScoreLabel.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		leftScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		rightScoreLabel.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		rightScoreLabel.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		rightScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		leftScoreDec.setFont(new Font("Arial", Font.BOLD, score_font_size));
+		leftScoreDec.setFont(new Font("Arial", Font.BOLD, GUI.score_font_size));
 		leftScoreDec.setMargin(new Insets(0, 0, 0, 0));
-		leftScore.setFont(new Font("Arial", Font.BOLD, score_font_size));
+		leftScore.setFont(new Font("Arial", Font.BOLD, GUI.score_font_size));
 		leftScore.setHorizontalAlignment(SwingConstants.CENTER);
 		leftScore.setEditable(false);
 		leftScore.addMouseListener(zeroLabels);
-		leftScoreInc.setFont(new Font("Arial", Font.BOLD, score_font_size));
+		leftScoreInc.setFont(new Font("Arial", Font.BOLD, GUI.score_font_size));
 		leftScoreInc.setMargin(new Insets(0, 0, 0, 0));
 		/* Switch Score Element */
 		switchScore.setMargin(new Insets(0, 0, 0, 0));
 		/* Right Score Elements */
-		rightScoreDec.setFont(new Font("Arial", Font.BOLD, score_font_size));
+		rightScoreDec.setFont(new Font("Arial", Font.BOLD, GUI.score_font_size));
 		rightScoreDec.setMargin(new Insets(0, 0, 0, 0));
-		rightScore.setFont(new Font("Arial", Font.BOLD, score_font_size));
+		rightScore.setFont(new Font("Arial", Font.BOLD, GUI.score_font_size));
 		rightScore.setHorizontalAlignment(SwingConstants.CENTER);
 		rightScore.setEditable(false);
 		rightScore.addMouseListener(zeroLabels);
-		rightScoreInc.setFont(new Font("Arial", Font.BOLD, score_font_size));
+		rightScoreInc.setFont(new Font("Arial", Font.BOLD, GUI.score_font_size));
 		rightScoreInc.setMargin(new Insets(0, 0, 0, 0));
 		/* Bracket Position Elements */
-		bracketPositionLabel.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		bracketPositionLabel.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		bracketPositionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		roundFormatLabel.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		roundFormatLabel.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		roundFormatLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		bracketPosition.setFont(new Font("Arial", Font.BOLD, text_field_font_size));
+		bracketPosition.setFont(new Font("Arial", Font.BOLD, GUI.text_field_font_size));
 		bracketPosition.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				writeToFile("" + bracketPosition.getText(), bracketPositionFile);
 			}
 		});
-		roundFormat.setFont(new Font("Arial", Font.BOLD, text_field_font_size));
+		roundFormat.setFont(new Font("Arial", Font.BOLD, GUI.text_field_font_size));
 		roundFormat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				writeToFile("" + roundFormat.getText(), roundFormatFile);
 			}
 		});
-		leftCommentatorLabel.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		leftCommentatorLabel.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		leftCommentatorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		rightCommentatorLabel.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		rightCommentatorLabel.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		rightCommentatorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		leftCommentatorName.setMaximumRowCount(names_visible_rows);
-		leftCommentatorName.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		leftCommentatorName.setMaximumRowCount(GUI.names_visible_rows);
+		leftCommentatorName.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		leftCommentatorName.setEditable(true);
 		// The combobox must be set to editable before this method call will work
 		leftCommentatorName.setSelectedItem(readFromFile(leftCommentatorNameFile));
@@ -1210,8 +1194,8 @@ public class Updater implements ActionListener {
 			}
 		});
 
-		rightCommentatorName.setMaximumRowCount(names_visible_rows);
-		rightCommentatorName.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		rightCommentatorName.setMaximumRowCount(GUI.names_visible_rows);
+		rightCommentatorName.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		rightCommentatorName.setEditable(true);
 		// The combobox must be set to editable before this method call will work
 		rightCommentatorName.setSelectedItem(readFromFile(rightCommentatorNameFile));
@@ -1243,20 +1227,20 @@ public class Updater implements ActionListener {
 		toggleFlatLayout();
 
 		/* Settings elements */
-		namesLabel.setBounds(5, 5, dir_text_field_width * 2 + small_gap_width, dir_label_element_height);
-		namesLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+		namesLabel.setBounds(5, 5, GUI.dir_text_field_width * 2 + GUI.small_gap_width, GUI.dir_label_element_height);
+		namesLabel.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		namesText.setBounds(
 			namesLabel.getX(),
-			namesLabel.getY() + namesLabel.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		namesText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			namesLabel.getY() + namesLabel.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		namesText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		NamesBrowseButton.setBounds(
-			namesText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			namesText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			namesText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		NamesBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		NamesBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		NamesBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1278,22 +1262,22 @@ public class Updater implements ActionListener {
 
 		namesFieldsLabel.setBounds(
 			namesText.getX(),
-			namesText.getY() + namesText.getHeight() + small_gap_width,
-			dir_text_field_width,
-			dir_text_element_height);
-		namesFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			namesText.getY() + namesText.getHeight() + GUI.small_gap_width,
+			GUI.dir_text_field_width,
+			GUI.dir_text_element_height);
+		namesFieldsLabel.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		leftNameText.setBounds(
 			namesText.getX(),
-			namesFieldsLabel.getY() + namesFieldsLabel.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		leftNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			namesFieldsLabel.getY() + namesFieldsLabel.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		leftNameText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		LeftNameBrowseButton.setBounds(
-			leftNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			leftNameText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			leftNameText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		LeftNameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		LeftNameBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		LeftNameBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1315,16 +1299,16 @@ public class Updater implements ActionListener {
 
 		left2NameText.setBounds(
 			leftNameText.getX(),
-			leftNameText.getY() + leftNameText.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		left2NameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			leftNameText.getY() + leftNameText.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		left2NameText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		Left2NameBrowseButton.setBounds(
-			left2NameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			left2NameText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			left2NameText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		Left2NameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		Left2NameBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		Left2NameBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1346,16 +1330,16 @@ public class Updater implements ActionListener {
 
 		rightNameText.setBounds(
 			left2NameText.getX(),
-			left2NameText.getY() + left2NameText.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		rightNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			left2NameText.getY() + left2NameText.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		rightNameText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RightNameBrowseButton.setBounds(
-			rightNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			rightNameText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			rightNameText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		RightNameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		RightNameBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RightNameBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1377,16 +1361,16 @@ public class Updater implements ActionListener {
 
 		right2NameText.setBounds(
 			rightNameText.getX(),
-			rightNameText.getY() + rightNameText.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		right2NameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			rightNameText.getY() + rightNameText.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		right2NameText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		Right2NameBrowseButton.setBounds(
-			right2NameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			right2NameText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			right2NameText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		Right2NameBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		Right2NameBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		Right2NameBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1408,22 +1392,22 @@ public class Updater implements ActionListener {
 
 		scoresFieldsLabel.setBounds(
 			right2NameText.getX(),
-			right2NameText.getY() + right2NameText.getHeight() + small_gap_width,
-			dir_text_field_width,
-			dir_text_element_height);
-		scoresFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			right2NameText.getY() + right2NameText.getHeight() + GUI.small_gap_width,
+			GUI.dir_text_field_width,
+			GUI.dir_text_element_height);
+		scoresFieldsLabel.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		leftScoreText.setBounds(
 			scoresFieldsLabel.getX(),
-			scoresFieldsLabel.getY() + scoresFieldsLabel.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		leftScoreText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			scoresFieldsLabel.getY() + scoresFieldsLabel.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		leftScoreText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		LeftScoreBrowseButton.setBounds(
-			leftScoreText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			leftScoreText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			leftScoreText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		LeftScoreBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		LeftScoreBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		LeftScoreBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1444,16 +1428,16 @@ public class Updater implements ActionListener {
 		});
 		rightScoreText.setBounds(
 			leftScoreText.getX(),
-			leftScoreText.getY() + leftScoreText.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		rightScoreText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			leftScoreText.getY() + leftScoreText.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		rightScoreText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RightScoreBrowseButton.setBounds(
-			rightScoreText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			rightScoreText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			rightScoreText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		RightScoreBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		RightScoreBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RightScoreBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1475,22 +1459,22 @@ public class Updater implements ActionListener {
 
 		setInfoFieldsLabel.setBounds(
 			leftScoreText.getX(),
-			rightScoreText.getY() + rightScoreText.getHeight() + small_gap_width,
-			dir_text_field_width * 2,
-			dir_text_element_height);
-		setInfoFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			rightScoreText.getY() + rightScoreText.getHeight() + GUI.small_gap_width,
+			GUI.dir_text_field_width * 2,
+			GUI.dir_text_element_height);
+		setInfoFieldsLabel.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		bracketPositionText.setBounds(
 			setInfoFieldsLabel.getX(),
-			setInfoFieldsLabel.getY() + setInfoFieldsLabel.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		bracketPositionText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			setInfoFieldsLabel.getY() + setInfoFieldsLabel.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		bracketPositionText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		BracketPositionBrowseButton.setBounds(
-			bracketPositionText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			bracketPositionText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			bracketPositionText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		BracketPositionBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		BracketPositionBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		BracketPositionBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1511,16 +1495,16 @@ public class Updater implements ActionListener {
 		});
 		roundFormatText.setBounds(
 			bracketPositionText.getX(),
-			bracketPositionText.getY() + bracketPositionText.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		roundFormatText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			bracketPositionText.getY() + bracketPositionText.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		roundFormatText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RoundFormatBrowseButton.setBounds(
-			roundFormatText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			roundFormatText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			roundFormatText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		RoundFormatBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		RoundFormatBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RoundFormatBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1542,22 +1526,22 @@ public class Updater implements ActionListener {
 
 		commentatorFieldsLabel.setBounds(
 			roundFormatText.getX(),
-			roundFormatText.getY() + roundFormatText.getHeight() + small_gap_width,
-			dir_text_field_width * 2,
-			dir_text_element_height);
-		commentatorFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			roundFormatText.getY() + roundFormatText.getHeight() + GUI.small_gap_width,
+			GUI.dir_text_field_width * 2,
+			GUI.dir_text_element_height);
+		commentatorFieldsLabel.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		leftCommentatorNameText.setBounds(
 			commentatorFieldsLabel.getX(),
-			commentatorFieldsLabel.getY() + commentatorFieldsLabel.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		leftCommentatorNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			commentatorFieldsLabel.getY() + commentatorFieldsLabel.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		leftCommentatorNameText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		LeftCommentatorBrowseButton.setBounds(
-			leftCommentatorNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			leftCommentatorNameText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			leftCommentatorNameText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		LeftCommentatorBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		LeftCommentatorBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		LeftCommentatorBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1578,16 +1562,16 @@ public class Updater implements ActionListener {
 		});
 		rightCommentatorNameText.setBounds(
 			leftCommentatorNameText.getX(),
-			leftCommentatorNameText.getY() + leftCommentatorNameText.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		rightCommentatorNameText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			leftCommentatorNameText.getY() + leftCommentatorNameText.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		rightCommentatorNameText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RightCommentatorBrowseButton.setBounds(
-			rightCommentatorNameText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			rightCommentatorNameText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			rightCommentatorNameText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		RightCommentatorBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		RightCommentatorBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RightCommentatorBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1609,22 +1593,22 @@ public class Updater implements ActionListener {
 
 		stockIconFieldsLabel.setBounds(
 			rightCommentatorNameText.getX(),
-			rightCommentatorNameText.getY() + rightCommentatorNameText.getHeight() + small_gap_width,
-			dir_text_field_width * 2,
-			dir_text_element_height);
-		stockIconFieldsLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			rightCommentatorNameText.getY() + rightCommentatorNameText.getHeight() + GUI.small_gap_width,
+			GUI.dir_text_field_width * 2,
+			GUI.dir_text_element_height);
+		stockIconFieldsLabel.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		leftStockIconText.setBounds(
 			stockIconFieldsLabel.getX(),
-			stockIconFieldsLabel.getY() + stockIconFieldsLabel.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		leftStockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			stockIconFieldsLabel.getY() + stockIconFieldsLabel.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		leftStockIconText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		LeftStockIconBrowseButton.setBounds(
-			leftStockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			leftStockIconText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			leftStockIconText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		LeftStockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		LeftStockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		LeftStockIconBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1645,16 +1629,16 @@ public class Updater implements ActionListener {
 		});
 		left2StockIconText.setBounds(
 			leftStockIconText.getX(),
-			leftStockIconText.getY() + leftStockIconText.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		left2StockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			leftStockIconText.getY() + leftStockIconText.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		left2StockIconText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		Left2StockIconBrowseButton.setBounds(
-			left2StockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			left2StockIconText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			left2StockIconText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		Left2StockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		Left2StockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		Left2StockIconBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1675,16 +1659,16 @@ public class Updater implements ActionListener {
 		});
 		rightStockIconText.setBounds(
 			left2StockIconText.getX(),
-			left2StockIconText.getY() + left2StockIconText.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		rightStockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			left2StockIconText.getY() + left2StockIconText.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		rightStockIconText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RightStockIconBrowseButton.setBounds(
-			rightStockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			rightStockIconText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			rightStockIconText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		RightStockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		RightStockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		RightStockIconBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1705,16 +1689,16 @@ public class Updater implements ActionListener {
 		});
 		right2StockIconText.setBounds(
 			rightStockIconText.getX(),
-			rightStockIconText.getY() + rightStockIconText.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		right2StockIconText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			rightStockIconText.getY() + rightStockIconText.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		right2StockIconText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		Right2StockIconBrowseButton.setBounds(
-			right2StockIconText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			right2StockIconText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			right2StockIconText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		Right2StockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		Right2StockIconBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		Right2StockIconBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1736,22 +1720,22 @@ public class Updater implements ActionListener {
 
 		StockIconDirLabel.setBounds(
 			right2StockIconText.getX(),
-			right2StockIconText.getY() + right2StockIconText.getHeight() + small_gap_width,
-			dir_text_field_width * 2 + small_gap_width,
-			dir_label_element_height);
-		StockIconDirLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			right2StockIconText.getY() + right2StockIconText.getHeight() + GUI.small_gap_width,
+			GUI.dir_text_field_width * 2 + GUI.small_gap_width,
+			GUI.dir_label_element_height);
+		StockIconDirLabel.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		StockIconDirText.setBounds(
 			StockIconDirLabel.getX(),
-			StockIconDirLabel.getY() + StockIconDirLabel.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		StockIconDirText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			StockIconDirLabel.getY() + StockIconDirLabel.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		StockIconDirText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		StockIconDirBrowseButton.setBounds(
-			StockIconDirText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			StockIconDirText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			StockIconDirText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		StockIconDirBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		StockIconDirBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		StockIconDirBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1771,22 +1755,22 @@ public class Updater implements ActionListener {
 		});
 		PortsDirLabel.setBounds(
 			StockIconDirText.getX(),
-			StockIconDirText.getY() + StockIconDirText.getHeight() + small_gap_width,
-			dir_text_field_width * 2 + small_gap_width,
-			dir_label_element_height);
-		PortsDirLabel.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			StockIconDirText.getY() + StockIconDirText.getHeight() + GUI.small_gap_width,
+			GUI.dir_text_field_width * 2 + GUI.small_gap_width,
+			GUI.dir_label_element_height);
+		PortsDirLabel.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		PortsDirText.setBounds(
 			PortsDirLabel.getX(),
-			PortsDirLabel.getY() + PortsDirLabel.getHeight() + small_gap_width,
-			(dir_text_field_width * 2) - button_width,
-			dir_text_element_height);
-		PortsDirText.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			PortsDirLabel.getY() + PortsDirLabel.getHeight() + GUI.small_gap_width,
+			(GUI.dir_text_field_width * 2) - GUI.button_width,
+			GUI.dir_text_element_height);
+		PortsDirText.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		PortsDirBrowseButton.setBounds(
-			PortsDirText.getX() + dir_text_field_width * 2 + small_gap_width - button_width,
+			PortsDirText.getX() + GUI.dir_text_field_width * 2 + GUI.small_gap_width - GUI.button_width,
 			PortsDirText.getY(),
-			browse_button_width,
-			dir_text_element_height);
-		PortsDirBrowseButton.setFont(new Font("Arial", Font.BOLD, dir_text_field_font_size));
+			GUI.browse_button_width,
+			GUI.dir_text_element_height);
+		PortsDirBrowseButton.setFont(new Font("Arial", Font.BOLD, GUI.dir_text_field_font_size));
 		PortsDirBrowseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1809,24 +1793,24 @@ public class Updater implements ActionListener {
 		/* TODO: check these bound-settings for the non-settings elements */
 		bracketPositionLabel.setBounds(
 			leftScoreDec.getX(),
-			leftScoreDec.getY() + leftScoreDec.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
+			leftScoreDec.getY() + leftScoreDec.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
 		bracketPosition.setBounds(
 			bracketPositionLabel.getX(),
-			bracketPositionLabel.getY() + bracketPositionLabel.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
-		bracketPosition.setFont(new Font("Arial", Font.BOLD, text_field_font_size));
+			bracketPositionLabel.getY() + bracketPositionLabel.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
+		bracketPosition.setFont(new Font("Arial", Font.BOLD, GUI.text_field_font_size));
 		showCommentatorsButton.setBounds(bracketPosition.getX(),
-			bracketPosition.getY() + bracketPosition.getHeight() + small_gap_width,
-			element_height,
-			element_height);
+			bracketPosition.getY() + bracketPosition.getHeight() + GUI.small_gap_width,
+			GUI.element_height,
+			GUI.element_height);
 		reloadFilesButton.setBounds(
 			PortsDirText.getX(),
-			PortsDirText.getY() + PortsDirText.getHeight() + small_gap_width,
-			button_width * 2,
-			element_height);
+			PortsDirText.getY() + PortsDirText.getHeight() + GUI.small_gap_width,
+			GUI.button_width * 2,
+			GUI.element_height);
 		reloadFilesButton.setMargin(new Insets(0, 0, 0, 0));
 		reloadFilesButton.addActionListener(new ActionListener() {
 			@Override
@@ -1856,7 +1840,6 @@ public class Updater implements ActionListener {
 				right2StockIconFile = new File(right2StockIconText.getText());
 
 				/* Save file paths program remembers */
-				// TODO: implement all prefs
 				prefs.put(FILE_NAMES, namesText.getText());
 
 				prefs.put(LEFT1_NAME_FP, leftNameText.getText());

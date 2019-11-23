@@ -11,13 +11,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.prefs.Preferences;
 import javax.swing.*;
 import javax.swing.UIManager.*;
 import javax.swing.event.*;
-import javax.swing.text.*;
 
 import static java.nio.file.StandardCopyOption.*;
+
+import ca.updater.constants.GUI;
 
 public class GUIPlayerSection {
 	private final Map<String, ImageIcon> StockIconMap = new HashMap<>();
@@ -30,23 +30,6 @@ public class GUIPlayerSection {
 	private File stockIconDir;
 	private File portsDir;
 	private File portFile;
-	/* GUI variables */
-	final int gap_width = 15;
-	final int small_gap_width = 5;
-	final int element_height = 30;
-	final int dir_text_element_height = 24;
-	final int button_width = 80;
-	final int combo_box_width = 220;
-	final int icon_preview_width = 24 * 2;
-	final int dir_text_field_width = 225;
-	final int window_width = (2 * combo_box_width) + (button_width) + (10 * small_gap_width);
-	final int window_height = (16 * element_height) + (6 * small_gap_width) + (10 * gap_width);
-	final int name_font_size = 16;
-	final int score_font_size = 36;
-	final int text_field_font_size = 14;
-	final int dir_text_field_font_size = 13;
-	final int stock_visible_rows = 26;
-	final int names_visible_rows = 30;
 
 	/* Aliased GUI classes {{{ */
 	public class JAliasedTextField extends JTextField {
@@ -127,8 +110,8 @@ public class GUIPlayerSection {
 			Image image = (StockIconMap.get((String) obj)).getImage();
 			double WToHRatio = ((double) image.getWidth(null)) / ((double) image.getHeight(null));
 			Image ScaledIC = image.getScaledInstance(
-				(int) (element_height * WToHRatio),
-				element_height,
+				(int) (GUI.element_height * WToHRatio),
+				GUI.element_height,
 				java.awt.Image.SCALE_FAST);
 			item.setIcon(new ImageIcon(ScaledIC));
 			item.setText("");
@@ -147,8 +130,8 @@ public class GUIPlayerSection {
 			Image image = (PortIconMap.get((String) obj)).getImage();
 			double WToHRatio = ((double) image.getWidth(null)) / ((double) image.getHeight(null));
 			Image ScaledIC = image.getScaledInstance(
-				(int) (element_height * WToHRatio),
-				element_height,
+				(int) (GUI.element_height * WToHRatio),
+				GUI.element_height,
 				java.awt.Image.SCALE_FAST);
 			item.setIcon(new ImageIcon(ScaledIC));
 			item.setText("");
@@ -220,7 +203,7 @@ public class GUIPlayerSection {
 		stockList = new JList();
 		stockListScroller = new JScrollPane(stockList);
 
-		nameLabel.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		nameLabel.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		setLocation(x, y);
@@ -236,7 +219,7 @@ public class GUIPlayerSection {
 
 
 
-		stockIconComboBox.setMaximumRowCount(stock_visible_rows);
+		stockIconComboBox.setMaximumRowCount(GUI.stock_visible_rows);
 		stockIconComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -319,8 +302,8 @@ public class GUIPlayerSection {
 		nameComboBox.setEditable(true);
 		// The combobox must be set to editable before this method call will work
 		nameComboBox.setSelectedItem(readFromFile(nameFile));
-		nameComboBox.setMaximumRowCount(names_visible_rows);
-		nameComboBox.setFont(new Font("Arial", Font.BOLD, name_font_size));
+		nameComboBox.setMaximumRowCount(GUI.names_visible_rows);
+		nameComboBox.setFont(new Font("Arial", Font.BOLD, GUI.name_font_size));
 		nameComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -342,31 +325,31 @@ public class GUIPlayerSection {
 	}
 
 	public void setLocation(int x, int y) {
-		nameLabel.setBounds(x, y, combo_box_width, element_height);
+		nameLabel.setBounds(x, y, GUI.combo_box_width, GUI.element_height);
 		stockIconPreview.setBounds(nameLabel.getX(),
-			nameLabel.getY() + nameLabel.getHeight() + small_gap_width,
-			icon_preview_width,
-			element_height);
+			nameLabel.getY() + nameLabel.getHeight() + GUI.small_gap_width,
+			GUI.icon_preview_width,
+			GUI.element_height);
 		stockIconComboBox.setBounds(
-			stockIconPreview.getX() + stockIconPreview.getWidth() + small_gap_width,
+			stockIconPreview.getX() + stockIconPreview.getWidth() + GUI.small_gap_width,
 			stockIconPreview.getY(),
-			combo_box_width - small_gap_width - stockIconPreview.getWidth(),
-			element_height);
+			GUI.combo_box_width - GUI.small_gap_width - stockIconPreview.getWidth(),
+			GUI.element_height);
 		stockListScroller.setBounds(
 			stockIconPreview.getX(),
-			stockIconPreview.getY() + stockIconPreview.getHeight() + small_gap_width,
-			combo_box_width,
-			(int) (element_height * 1.5));
+			stockIconPreview.getY() + stockIconPreview.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			(int) (GUI.element_height * 1.5));
 		portsListScroller.setBounds(
 			stockListScroller.getX(),
-			stockListScroller.getY() + stockListScroller.getHeight() + small_gap_width,
-			combo_box_width,
-			(int) (element_height * 1.5));
+			stockListScroller.getY() + stockListScroller.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			(int) (GUI.element_height * 1.5));
 		nameComboBox.setBounds(
 			portsListScroller.getX(),
-			portsListScroller.getY() + portsListScroller.getHeight() + small_gap_width,
-			combo_box_width,
-			element_height);
+			portsListScroller.getY() + portsListScroller.getHeight() + GUI.small_gap_width,
+			GUI.combo_box_width,
+			GUI.element_height);
 	}
 
 	public int getY() {
